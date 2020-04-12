@@ -5,25 +5,42 @@ export default props => {
   const { tour, registerStep } = useTour()
 
   const controlsStep = registerStep({
-    name: 'controls'
+    name: 'controls',
+    placement: 'top',
+    title: 'Controls',
+    content: 'These are the controls',
   })
   const pageHeaderStep = registerStep({
-    name: 'pageHeader'
+    name: 'pageHeader',
+    title: 'Page Header',
+    content: 'Contains the header information for the page',
   })
   const titleStep = registerStep({
-    name: 'title'
+    name: 'title',
+    title: 'Page Title',
+    content: 'This is the title of the page',
   })
   const menuButtonStep = registerStep({
     name: 'menuButton',
-    onShow: () => {
-      alert('menu shown!')
-    }
+    placement: 'right',
+    title: 'Menu Button',
+    content: 'Click here for additional information',
+  })
+  const logoStep = registerStep({
+    name: 'logo',
+    placement: 'left',
+    title: 'Logo',
+    content: 'This is nothing',
   })
   const subheadStep = registerStep({
-    name: 'subhead'
+    name: 'subhead',
+    title: 'Configuration Options',
+    content: 'Below here, find all the configuration options for the tour',
   })
   const configOptionsStep = registerStep({
-    name: 'configOptions'
+    name: 'configOptions',
+    title: 'Configuration Options',
+    content: 'Options will indicate whether they can be used on the tour, the steps, or both',
   })
   
   return (
@@ -31,6 +48,7 @@ export default props => {
       <header className="header" ref={pageHeaderStep}>
         <h1 className="title" ref={titleStep}>Example Tour</h1>
         <button className="menu" ref={menuButtonStep}>Menu</button>
+        <button className="menu" style={{position: 'absolute', right: 0}} ref={logoStep}>Logo</button>
       </header>
 
       <h2 className="subhead" ref={subheadStep}>

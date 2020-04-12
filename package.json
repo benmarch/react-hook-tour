@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "1.12.4"
+    "parcel": "1.12.4",
+    "sass": "1.26.3"
   },
   "dependencies": {
     "@popperjs/core": "2.2.3",
