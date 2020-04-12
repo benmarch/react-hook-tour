@@ -9,23 +9,41 @@ export default props => {
     name: 'welcome',
     isModal: true,
     title: 'Welcome to React Hook Tour!',
-    content: 'Take a tour to learn how it works...'
+    content: 'Take a tour to learn how it works...',
+    onNext() {
+      console.log('Welcome Next')
+    }
   })
   const controlsStep = registerStep({
     name: 'controls',
     placement: 'top',
     title: 'Controls',
     content: 'These are the controls',
+    onPrev() {
+      console.log('Controls Prev')
+    }
   })
   const pageHeaderStep = registerStep({
     name: 'pageHeader',
     title: 'Page Header',
     content: 'Contains the header information for the page',
+    onNext() {
+      console.log('Page Header Next')
+    },
+    onPrev() {
+      console.log('Page Header Prev')
+    }
   })
   const titleStep = registerStep({
     name: 'title',
     title: 'Page Title',
     content: 'This is the title of the page',
+    onNext() {
+      console.log('Page Title Next')
+    },
+    onPrev() {
+      console.log('Page Title Prev')
+    }
   })
   const menuButtonStep = registerStep({
     name: 'menuButton',
@@ -38,6 +56,13 @@ export default props => {
     placement: 'left',
     title: 'Logo',
     content: 'This is nothing',
+    onNext() {
+      console.log('Logo Next')
+    },
+    onPrev() {
+      console.log('Logo Prev')
+    }
+    
   })
   const subheadStep = registerStep({
     name: 'subhead',

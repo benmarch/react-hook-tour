@@ -36,7 +36,22 @@ export default props => {
       name: 'Example Tour',
       stepOrder,
       component: PopoverTemplate,
-      offset: 10
+      offset: 10,
+      onStart() {
+        console.log('Tour start')
+      },
+      onPause() {
+        console.log('Tour pause')
+      },
+      onResume() {
+        console.log('Tour resume')
+      },
+      onEnd() {
+        console.log('Tour end')
+      },
+      onNext() {
+        console.log('Tour next')
+      },
     }}>
       <TourPage />
     </TourProvider>
