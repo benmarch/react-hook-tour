@@ -12,7 +12,8 @@ export default props => {
   }, [updatePopover])
 
   const adjustedArrowStyles = {
-    ...arrowStyles
+    ...arrowStyles,
+    display: step.isModal ? 'none' : 'block',
   }
 
   if (popoverConfig) {

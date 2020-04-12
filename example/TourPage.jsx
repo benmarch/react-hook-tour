@@ -4,6 +4,12 @@ import { useTour } from '../lib'
 export default props => {
   const { tour, registerStep } = useTour()
 
+  const welcomeStep = registerStep({
+    name: 'welcome',
+    isModal: true,
+    title: 'Welcome to React Hook Tour!',
+    content: 'Take a tour to learn how it works...'
+  })
   const controlsStep = registerStep({
     name: 'controls',
     placement: 'top',
@@ -45,6 +51,7 @@ export default props => {
   
   return (
     <div>
+      <div className="welcome" ref={welcomeStep}></div>
       <header className="header" ref={pageHeaderStep}>
         <h1 className="title" ref={titleStep}>Example Tour</h1>
         <button className="menu" ref={menuButtonStep}>Menu</button>

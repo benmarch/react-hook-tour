@@ -2,13 +2,29 @@ import React, { useState } from 'react'
 import { usePopper } from 'react-popper'
 import useTour from './useTour'
 
+const modalVirtualElement = {
+  getBoundingClientRect() {
+    return {
+      width: 0,
+      height: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    }
+  }
+}
+
 export default props => {
   const { tour } = useTour()
   const step = tour.currentStep
+
   const [ popperElement, setPopperElement ] = React.useState(null)
   const [ arrowElement, setArrowElement ] = useState(null)
-  const popper = usePopper(step.ref.current, popperElement, {
+
+  const popper = usePopper(step.getConfig('isModal') === true ? modalVirtualElement : step.ref.current, popperElement, {
     placement: step.getConfig('placement'),
+    strategy: step.getConfig('isModal') ? 'fixed' : 'absolute',
     modifiers: [
       { 
         name: 'arrow', 
@@ -24,6 +40,8 @@ export default props => {
       }
     ],
   })
+
+  console.log(popper)
 
   const templateProps = {
     tour,
@@ -41,8 +59,15 @@ export default props => {
     popoverTemplate = step.getConfig('component')
   }
 
+  const popoverStyles = step.getConfig('isModal') ? {
+    position: 'absolute',
+    top: '50vh',
+    left: '50vw',
+    transform: 'translate(-50%, -50%)'
+  } : popper.styles.popper
+
   return (
-    <div ref={setPopperElement} style={popper.styles.popper} {...popper.attributes.popper}>
+    <div ref={setPopperElement} style={popoverStyles} {...popper.attributes.popper}>
       {popoverTemplate}
     </div>
   )

@@ -4,6 +4,7 @@ import TourPage from './TourPage'
 import PopoverTemplate from './PopoverTemplate'
 
 const stepOrder = [
+  'welcome',
   'pageHeader',
   'title',
   'menuButton',
