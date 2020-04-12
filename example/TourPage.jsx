@@ -79,8 +79,8 @@ export default props => {
       </table>
       
       <div className="tour-status">
-        {tour.status}<br />
-        {!!tour.currentStep && tour.currentStep.name}
+        {tour.getStatus()}<br />
+        {!!tour.getCurrentStep() && tour.getCurrentStep().name}
       </div>
 
       <div className="controls" ref={controlsStep}>
@@ -92,7 +92,7 @@ export default props => {
         <button onClick={tour.next}>Next</button>
       </div>
 
-      {tour.customState.showLazy && <LazyStep />}
+      {tour.getCustomState().showLazy && <LazyStep />}
     </div>
   )
 }

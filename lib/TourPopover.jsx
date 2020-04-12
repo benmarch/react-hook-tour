@@ -17,7 +17,7 @@ const modalVirtualElement = {
 
 export default props => {
   const { tour } = useTour()
-  const step = tour.currentStep
+  const step = tour.getCurrentStep()
 
   const [ popperElement, setPopperElement ] = React.useState(null)
   const [ arrowElement, setArrowElement ] = useState(null)
