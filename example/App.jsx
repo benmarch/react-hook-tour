@@ -9,6 +9,22 @@ const stepOrder = [
   'title',
   'menuButton',
   'logo',
+  {
+    name: 'lazy',
+    fetch: (tour) => {
+      setTimeout(() => {
+        tour.setCustomState({
+          showLazy: true
+        })
+
+        setTimeout(() => {
+          tour.setCustomState({
+            showLazy: false
+          })
+        }, 5000)
+      }, 1000)    
+    }
+  },
   'subhead',
   'configOptions',
   'controls',

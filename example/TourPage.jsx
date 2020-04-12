@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTour } from '../lib'
+import LazyStep from './LazyStep'
 
 export default props => {
   const { tour, registerStep } = useTour()
@@ -90,6 +91,8 @@ export default props => {
         <button onClick={tour.prev}>Previous</button>
         <button onClick={tour.next}>Next</button>
       </div>
+
+      {tour.customState.showLazy && <LazyStep />}
     </div>
   )
 }

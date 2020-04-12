@@ -54,8 +54,8 @@ export default props => {
           {step.content}
         </div>
         <div className="popover-inner__controls">
-          {tour.prevStep && <button onClick={tour.prev}>Prev</button>}
-          {tour.nextStep && <button onClick={tour.next}>Next</button>}
+          {tour.hasPreviousStep() && <button onClick={tour.prev}>Prev</button>}
+          {tour.hasNextStep() && <button onClick={tour.next}>Next</button>}
           <button onClick={tour.end}>End</button>
         </div>
       </div>

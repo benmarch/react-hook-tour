@@ -41,8 +41,6 @@ export default props => {
     ],
   })
 
-  console.log(popper)
-
   const templateProps = {
     tour,
     step,
