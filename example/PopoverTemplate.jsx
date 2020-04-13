@@ -11,6 +11,9 @@ export default props => {
     }
   }, [updatePopover])
 
+  // The arrow styles only contain the bare minimum styles to align the arrow.
+  // We have to extend them to orient it properly.
+  // There are additional styles in the scss file.
   const adjustedArrowStyles = {
     ...arrowStyles,
     display: step.isModal ? 'none' : 'block',
@@ -54,8 +57,8 @@ export default props => {
           {step.content}
         </div>
         <div className="popover-inner__controls">
-          {tour.hasPreviousStep() && <button onClick={tour.prev}>Prev</button>}
-          {tour.hasNextStep() && <button onClick={tour.next}>Next</button>}
+          {tour.hasPreviousStep() && <button onClick={tour.prev}>&lt; Prev</button>}
+          {tour.hasNextStep() && <button onClick={tour.next}>Next &gt;</button>}
           <button onClick={tour.end}>End</button>
         </div>
       </div>

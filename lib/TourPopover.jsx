@@ -51,10 +51,10 @@ export default props => {
   }
 
   let popoverTemplate = null
-  if (step.getConfig('component')) {
-    popoverTemplate = React.createElement(step.getConfig('component'), templateProps)
-  } else if (step.getConfig('template')) {
-    popoverTemplate = step.getConfig('component')
+  if (step.getConfig('PopoverComponent')) {
+    popoverTemplate = React.createElement(step.getConfig('PopoverComponent'), templateProps)
+  } else if (step.getConfig('popoverTemplate')) {
+    popoverTemplate = step.getConfig('popoverTemplate')
   }
 
   const popoverStyles = step.getConfig('isModal') ? {
@@ -65,7 +65,10 @@ export default props => {
   } : popper.styles.popper
 
   return (
-    <div ref={setPopperElement} className={step.getConfig('popoverClassName') || 'tour-popover'} style={popoverStyles} {...popper.attributes.popper}>
+    <div  ref={setPopperElement} 
+          className={step.getConfig('popoverClassName') || 'tour-popover'} 
+          style={popoverStyles} 
+          {...popper.attributes.popper}>
       {popoverTemplate}
     </div>
   )

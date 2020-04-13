@@ -3,8 +3,11 @@ import { useTour } from '../lib'
 import LazyStep from './LazyStep'
 
 export default props => {
+  // get a reference to the tour and register step function
   const { tour, registerStep } = useTour()
 
+  // Define our steps.
+  // The return values are refs that we apply to the step targets below.
   const welcomeStep = registerStep({
     name: 'welcome',
     isModal: true,
@@ -15,6 +18,7 @@ export default props => {
       console.log('Welcome Next')
     }
   })
+
   const controlsStep = registerStep({
     name: 'controls',
     hasBackdrop: true,
@@ -25,6 +29,7 @@ export default props => {
       console.log('Controls Prev')
     }
   })
+
   const pageHeaderStep = registerStep({
     name: 'pageHeader',
     hasBackdrop: true,
@@ -37,6 +42,7 @@ export default props => {
       console.log('Page Header Prev')
     }
   })
+
   const titleStep = registerStep({
     name: 'title',
     title: 'Page Title',
@@ -49,12 +55,14 @@ export default props => {
       console.log('Page Title Prev')
     }
   })
+
   const menuButtonStep = registerStep({
     name: 'menuButton',
     placement: 'right',
     title: 'Menu Button',
     content: 'Click here for additional information',
   })
+
   const logoStep = registerStep({
     name: 'logo',
     placement: 'left',
@@ -68,11 +76,13 @@ export default props => {
     }
     
   })
+
   const subheadStep = registerStep({
     name: 'subhead',
     title: 'Configuration Options',
     content: 'Below here, find all the configuration options for the tour',
   })
+
   const configOptionsStep = registerStep({
     name: 'configOptions',
     title: 'Configuration Options',

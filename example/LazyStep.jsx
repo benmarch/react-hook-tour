@@ -1,6 +1,10 @@
 import React from 'react'
 import { useTour } from '../lib'
 
+/**
+ * This step is not loaded with the initial page. 
+ * The tour waits for it to load before positioning the popover
+ */
 export default props => {
   const { registerStep } = useTour()
 
