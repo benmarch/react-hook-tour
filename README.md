@@ -225,7 +225,7 @@ The following methods are available on the `tour` object to access data about th
 
  - `getSteps()` - returns all steps as `Map<name, config>`
  - `getCurrentStep()` - returns the current step config
- - `getStepOrder()` - returns the `stepOrder` array. Do not modify it!
+ - `getStepOrder()` - returns the `stepOrder` array. Do not modify it, use the setter below.
  - `getStatus()` - returns a `TourStatus`
  - `hasNextStep()` - returns true if there is a next step
  - `hasPreviousStep()` - returns true if there is a previous step
@@ -242,4 +242,5 @@ The following methods are available on the `tour` object for controlling the tou
  - `resume()` - starts a paused tour at the step left off when it was paused
  - `next()` - moves to the next step
  - `prev()` - moves to the previous step
+ - `setStepOrder()` - resets the step order. Running this when a tour is running will cause problems!
  - `setCustomState(state)` - allows for arbitrary state to be stored on the tour. Useful for testing or saving values for displaying in the popover.
