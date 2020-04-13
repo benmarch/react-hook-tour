@@ -219,6 +219,19 @@ Properties can be accessed using `step.getConfig(key)`.
 
 ## Tour Controller API
 
+### Controlling the Tour
+
+The following methods are available on the `tour` object for controlling the tour:
+
+ - `start()` - starts the tour from the first step
+ - `end()` - ends the tour
+ - `pause()` - turns the tour off but maintains state
+ - `resume()` - starts a paused tour at the step left off when it was paused
+ - `next()` - moves to the next step
+ - `prev()` - moves to the previous step
+ - `setStepOrder()` - resets the step order. Running this when a tour is running will cause problems!
+ - `setCustomState(state)` - allows for arbitrary state to be stored on the tour. Useful for testing or saving values for displaying in the popover.
+
 ### Accessing Tour Data
 
 The following methods are available on the `tour` object to access data about the tour:
@@ -232,15 +245,4 @@ The following methods are available on the `tour` object to access data about th
  - `getCustomState()` - returns the custom state object
  - `getConfig(key)` - returns the value of a specific key. Useful for getting a life cycle event handler.
 
-### Controlling the Tour
 
-The following methods are available on the `tour` object for controlling the tour:
-
- - `start()` - starts the tour from the first step
- - `end()` - ends the tour
- - `pause()` - turns the tour off but maintains state
- - `resume()` - starts a paused tour at the step left off when it was paused
- - `next()` - moves to the next step
- - `prev()` - moves to the previous step
- - `setStepOrder()` - resets the step order. Running this when a tour is running will cause problems!
- - `setCustomState(state)` - allows for arbitrary state to be stored on the tour. Useful for testing or saving values for displaying in the popover.
