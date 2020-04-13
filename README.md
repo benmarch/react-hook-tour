@@ -94,7 +94,7 @@ export default props => {
  - onShow
  - onHide
 
-### `stepOrder <array>`
+### `stepOrder <array>` required
 
 Configurable for `Tour` only
 

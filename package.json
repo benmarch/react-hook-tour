@@ -1,26 +1,40 @@
 {
   "name": "react-hook-tour",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0-rc.0",
+  "description": "A product tour library using React Hooks",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "files": [
+    "lib/**/*",
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel serve example/index.html"
+    "start": "parcel serve example/index.html",
+    "build": "npm run clean && parcel build lib/index.js --target node",
+    "clean": "rm -r dist/"
   },
-  "author": "",
+  "author": "Ben March (https://github.com/benmarch)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benmarch/react-hook-tour.git"
+  },
+  "homepage": "https://github.com/benmarch/react-hook-tour",
   "license": "ISC",
   "devDependencies": {
     "parcel": "1.12.4",
+    "react-dom": "16.13.1",
     "sass": "1.26.3"
   },
   "dependencies": {
     "@popperjs/core": "2.2.3",
-    "babel-polyfill": "6.26.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "babel-polyfill": "6.26.0",    
     "react-popper": "2.2.2"
   },
   "optionalDependencies": {
     "hone": "1.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
   }
 }
