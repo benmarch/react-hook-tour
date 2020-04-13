@@ -8,6 +8,7 @@ export default props => {
   const welcomeStep = registerStep({
     name: 'welcome',
     isModal: true,
+    hasBackdrop: true,
     title: 'Welcome to React Hook Tour!',
     content: 'Take a tour to learn how it works...',
     onNext() {
@@ -16,6 +17,7 @@ export default props => {
   })
   const controlsStep = registerStep({
     name: 'controls',
+    hasBackdrop: true,
     placement: 'top',
     title: 'Controls',
     content: 'These are the controls',
@@ -25,6 +27,7 @@ export default props => {
   })
   const pageHeaderStep = registerStep({
     name: 'pageHeader',
+    hasBackdrop: true,
     title: 'Page Header',
     content: 'Contains the header information for the page',
     onNext() {
@@ -37,6 +40,7 @@ export default props => {
   const titleStep = registerStep({
     name: 'title',
     title: 'Page Title',
+    hasBackdrop: true,
     content: 'This is the title of the page',
     onNext() {
       console.log('Page Title Next')

@@ -1,3 +1,4 @@
+import './App.scss'
 import React from 'react'
 import { TourProvider } from '../lib'
 import TourPage from './TourPage'

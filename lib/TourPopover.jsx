@@ -65,7 +65,7 @@ export default props => {
   } : popper.styles.popper
 
   return (
-    <div ref={setPopperElement} style={popoverStyles} {...popper.attributes.popper}>
+    <div ref={setPopperElement} className={step.getConfig('popoverClassName') || 'tour-popover'} style={popoverStyles} {...popper.attributes.popper}>
       {popoverTemplate}
     </div>
   )
