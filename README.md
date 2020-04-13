@@ -245,4 +245,11 @@ The following methods are available on the `tour` object to access data about th
  - `getCustomState()` - returns the custom state object
  - `getConfig(key)` - returns the value of a specific key. Useful for getting a life cycle event handler.
 
+## Running the Example App
 
+Just run the following commands and then visit `http://localhost:1234`:
+
+```sh
+$ npm install
+$ npm start
+```
