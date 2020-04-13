@@ -10,11 +10,18 @@ const tourConfig = {
   name: 'Example Tour',
   PopoverComponent: PopoverTemplate,
   offset: 10,
+  scrollOffsets: {
+    top: 100,
+    left: 100,
+    right: 100,
+    bottom: 100,
+  },
   stepOrder: [
     'welcome',
     'pageHeader',
     'title',
     'menuButton',
+    'scroll',
     'logo',
     {
       name: 'lazy',

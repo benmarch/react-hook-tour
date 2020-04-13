@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { usePopper } from 'react-popper'
 import useTour from './useTour'
 
@@ -24,7 +24,7 @@ export default props => {
 
   const popper = usePopper(step.getConfig('isModal') === true ? modalVirtualElement : step.ref.current, popperElement, {
     placement: step.getConfig('placement'),
-    strategy: step.getConfig('isModal') ? 'fixed' : 'absolute',
+    // strategy: step.getConfig('isModal') ? 'fixed' : 'absolute',
     modifiers: [
       { 
         name: 'arrow', 
@@ -40,6 +40,12 @@ export default props => {
       }
     ],
   })
+
+  useEffect(() => {
+    if (popperElement) {
+      tour.setPopoverRef({current: popperElement})
+    }  
+  }, [popperElement])
 
   const templateProps = {
     tour,
@@ -58,11 +64,13 @@ export default props => {
   }
 
   const popoverStyles = step.getConfig('isModal') ? {
-    position: 'absolute',
+    position: 'fixed',
     top: '50vh',
     left: '50vw',
     transform: 'translate(-50%, -50%)'
   } : popper.styles.popper
+
+
 
   return (
     <div  ref={setPopperElement} 

@@ -88,6 +88,12 @@ export default props => {
     title: 'Configuration Options',
     content: 'Options will indicate whether they can be used on the tour, the steps, or both',
   })
+
+  const scrollStep = registerStep({
+    name: 'scroll',
+    title: 'The Tour Scrolls',
+    content: 'The tour will cause the page to scroll if the step is out of view.'
+  })
   
   return (
     <div>
@@ -132,6 +138,10 @@ export default props => {
       </div>
 
       {tour.getCustomState().showLazy && <LazyStep />}
+
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <div className="way-down-the-page" ref={scrollStep}>Hi guys!</div>
     </div>
   )
 }
