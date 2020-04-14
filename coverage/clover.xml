@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1586899414486" clover="3.2.0">
-  <project timestamp="1586899414486" name="All files">
-    <metrics statements="215" coveredstatements="126" conditionals="148" coveredconditionals="44" methods="52" coveredmethods="38" elements="415" coveredelements="208" complexity="0" loc="215" ncloc="215" packages="1" files="10" classes="10"/>
+<coverage generated="1586903743264" clover="3.2.0">
+  <project timestamp="1586903743265" name="All files">
+    <metrics statements="216" coveredstatements="139" conditionals="152" coveredconditionals="52" methods="51" coveredmethods="42" elements="419" coveredelements="233" complexity="0" loc="216" ncloc="216" packages="1" files="10" classes="10"/>
     <file name="TourPopover.jsx" path="/Users/ben.march/Projects/react-hook-tour/lib/TourPopover.jsx">
       <metrics statements="18" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <line num="5" count="2" type="stmt"/>
@@ -169,19 +169,20 @@
       <line num="55" count="0" type="stmt"/>
     </file>
     <file name="useBackdrop.js" path="/Users/ben.march/Projects/react-hook-tour/lib/useBackdrop.js">
-      <metrics statements="12" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="6" coveredmethods="0"/>
-      <line num="10" count="0" type="stmt"/>
-      <line num="12" count="0" type="stmt"/>
-      <line num="13" count="0" type="stmt"/>
-      <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="15" count="0" type="stmt"/>
-      <line num="16" count="0" type="stmt"/>
-      <line num="22" count="0" type="stmt"/>
-      <line num="23" count="0" type="stmt"/>
-      <line num="24" count="0" type="cond" truecount="0" falsecount="4"/>
-      <line num="25" count="0" type="stmt"/>
-      <line num="26" count="0" type="stmt"/>
-      <line num="32" count="0" type="stmt"/>
+      <metrics statements="13" coveredstatements="13" conditionals="10" coveredconditionals="8" methods="5" coveredmethods="4"/>
+      <line num="10" count="4" type="stmt"/>
+      <line num="12" count="4" type="stmt"/>
+      <line num="13" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="14" count="2" type="stmt"/>
+      <line num="15" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="16" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="17" count="2" type="stmt"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="25" count="4" type="stmt"/>
+      <line num="26" count="4" type="cond" truecount="4" falsecount="0"/>
+      <line num="27" count="2" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
+      <line num="33" count="4" type="stmt"/>
     </file>
     <file name="useStepChange.js" path="/Users/ben.march/Projects/react-hook-tour/lib/useStepChange.js">
       <metrics statements="37" coveredstatements="0" conditionals="52" coveredconditionals="0" methods="3" coveredmethods="0"/>
