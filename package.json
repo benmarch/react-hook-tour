@@ -9,7 +9,7 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "parcel serve example/index.html",
     "build": "npm run clean && parcel build lib/index.js --target node",
     "clean": "rm -r dist/"
@@ -22,13 +22,19 @@
   "homepage": "https://github.com/benmarch/react-hook-tour",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "7.9.0",
+    "@babel/plugin-transform-runtime": "7.9.0",
+    "@babel/preset-env": "7.9.5",
+    "babel-jest": "25.3.0",
+    "jest": "25.3.0",
     "parcel": "1.12.4",
     "react-dom": "16.13.1",
     "sass": "1.26.3"
   },
   "dependencies": {
+    "@babel/polyfill": "7.8.7",
     "@popperjs/core": "2.2.3",
-    "babel-polyfill": "6.26.0",    
+    "react": "16.13.1",
     "react-popper": "2.2.2"
   },
   "optionalDependencies": {
