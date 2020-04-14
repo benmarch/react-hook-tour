@@ -7,7 +7,7 @@ export const TourContext = React.createContext()
 
 export default props => {
   const tourController = useTourController(props.config)
-  const shouldShowPopover = tourController.getStatus() === TourStatus.ON && tourController.getCurrentStep() 
+  const shouldShowPopover = tourController.getStatus() === TourStatus.ON && !!tourController.getCurrentStep() 
 
   return (    
     <TourContext.Provider value={tourController}>
