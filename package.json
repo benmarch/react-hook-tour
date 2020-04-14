@@ -25,9 +25,13 @@
     "@babel/core": "7.9.0",
     "@babel/plugin-transform-runtime": "7.9.0",
     "@babel/preset-env": "7.9.5",
+    "@babel/preset-react": "7.9.4",
+    "@testing-library/react-hooks": "3.2.1",
     "babel-jest": "25.3.0",
     "jest": "25.3.0",
     "parcel": "1.12.4",
+    "react": "16.13.1",
+    "react-test-renderer": "16.13.1",
     "react-dom": "16.13.1",
     "sass": "1.26.3"
   },
