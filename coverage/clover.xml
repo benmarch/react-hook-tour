@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1586891536201" clover="3.2.0">
-  <project timestamp="1586891536201" name="All files">
+<coverage generated="1586893828623" clover="3.2.0">
+  <project timestamp="1586893828623" name="All files">
     <metrics statements="215" coveredstatements="117" conditionals="148" coveredconditionals="40" methods="52" coveredmethods="36" elements="415" coveredelements="193" complexity="0" loc="215" ncloc="215" packages="1" files="10" classes="10"/>
     <file name="TourPopover.jsx" path="/Users/ben.march/Projects/react-hook-tour/lib/TourPopover.jsx">
       <metrics statements="18" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="3" coveredmethods="0"/>
@@ -225,18 +225,18 @@
     </file>
     <file name="useTour.js" path="/Users/ben.march/Projects/react-hook-tour/lib/useTour.js">
       <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6"/>
-      <line num="8" count="8" type="stmt"/>
+      <line num="8" count="7" type="stmt"/>
       <line num="9" count="6" type="stmt"/>
       <line num="10" count="6" type="stmt"/>
       <line num="11" count="6" type="stmt"/>
       <line num="12" count="5" type="cond" truecount="2" falsecount="0"/>
       <line num="15" count="6" type="stmt"/>
-      <line num="16" count="2" type="stmt"/>
-      <line num="18" count="2" type="stmt"/>
-      <line num="19" count="1" type="stmt"/>
+      <line num="16" count="6" type="stmt"/>
+      <line num="18" count="6" type="stmt"/>
+      <line num="19" count="6" type="stmt"/>
       <line num="23" count="6" type="stmt"/>
-      <line num="31" count="8" type="stmt"/>
-      <line num="33" count="8" type="stmt"/>
+      <line num="31" count="7" type="stmt"/>
+      <line num="33" count="7" type="stmt"/>
     </file>
     <file name="useTourController.js" path="/Users/ben.march/Projects/react-hook-tour/lib/useTourController.js">
       <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
