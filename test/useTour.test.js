@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { TourContext } from '../lib/TourProvider'
 import useTour from '../lib/useTour'
 
-describe('useTour Hook LIB', () => {
+describe('useTour Hook', () => {
   it('should return the tour controller from context and registerStep function', () => {
     // given
     const tourController = {}

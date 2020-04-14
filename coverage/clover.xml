@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1586893828623" clover="3.2.0">
-  <project timestamp="1586893828623" name="All files">
-    <metrics statements="215" coveredstatements="117" conditionals="148" coveredconditionals="40" methods="52" coveredmethods="36" elements="415" coveredelements="193" complexity="0" loc="215" ncloc="215" packages="1" files="10" classes="10"/>
+<coverage generated="1586896604164" clover="3.2.0">
+  <project timestamp="1586896604165" name="All files">
+    <metrics statements="215" coveredstatements="123" conditionals="148" coveredconditionals="40" methods="52" coveredmethods="37" elements="415" coveredelements="200" complexity="0" loc="215" ncloc="215" packages="1" files="10" classes="10"/>
     <file name="TourPopover.jsx" path="/Users/ben.march/Projects/react-hook-tour/lib/TourPopover.jsx">
       <metrics statements="18" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <line num="5" count="1" type="stmt"/>
@@ -83,24 +83,24 @@
     </file>
     <file name="constants.js" path="/Users/ben.march/Projects/react-hook-tour/lib/constants.js">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <line num="2" count="3" type="stmt"/>
-      <line num="3" count="3" type="stmt"/>
-      <line num="4" count="3" type="stmt"/>
-      <line num="5" count="3" type="stmt"/>
-      <line num="6" count="3" type="stmt"/>
-      <line num="7" count="3" type="stmt"/>
-      <line num="8" count="3" type="stmt"/>
-      <line num="9" count="3" type="stmt"/>
-      <line num="10" count="3" type="stmt"/>
-      <line num="11" count="3" type="stmt"/>
-      <line num="12" count="3" type="stmt"/>
-      <line num="13" count="3" type="stmt"/>
-      <line num="15" count="3" type="stmt"/>
+      <line num="2" count="6" type="stmt"/>
+      <line num="3" count="6" type="stmt"/>
+      <line num="4" count="6" type="stmt"/>
+      <line num="5" count="6" type="stmt"/>
+      <line num="6" count="6" type="stmt"/>
+      <line num="7" count="6" type="stmt"/>
+      <line num="8" count="6" type="stmt"/>
+      <line num="9" count="6" type="stmt"/>
+      <line num="10" count="6" type="stmt"/>
+      <line num="11" count="6" type="stmt"/>
+      <line num="12" count="6" type="stmt"/>
+      <line num="13" count="6" type="stmt"/>
+      <line num="15" count="6" type="stmt"/>
     </file>
     <file name="reducer.js" path="/Users/ben.march/Projects/react-hook-tour/lib/reducer.js">
       <metrics statements="42" coveredstatements="41" conditionals="21" coveredconditionals="20" methods="15" coveredmethods="15"/>
-      <line num="17" count="2" type="stmt"/>
-      <line num="38" count="2" type="stmt"/>
+      <line num="17" count="3" type="stmt"/>
+      <line num="38" count="3" type="stmt"/>
       <line num="39" count="18" type="stmt"/>
       <line num="41" count="18" type="cond" truecount="2" falsecount="0"/>
       <line num="42" count="4" type="stmt"/>
@@ -144,7 +144,7 @@
     </file>
     <file name="smartScroll.js" path="/Users/ben.march/Projects/react-hook-tour/lib/smartScroll.js">
       <metrics statements="23" coveredstatements="1" conditionals="31" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <line num="1" count="1" type="stmt"/>
+      <line num="1" count="2" type="stmt"/>
       <line num="4" count="0" type="stmt"/>
       <line num="5" count="0" type="stmt"/>
       <line num="6" count="0" type="stmt"/>
@@ -239,13 +239,13 @@
       <line num="33" count="7" type="stmt"/>
     </file>
     <file name="useTourController.js" path="/Users/ben.march/Projects/react-hook-tour/lib/useTourController.js">
-      <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <line num="14" count="0" type="stmt"/>
-      <line num="18" count="0" type="stmt"/>
-      <line num="19" count="0" type="stmt"/>
-      <line num="22" count="0" type="stmt"/>
-      <line num="28" count="0" type="stmt"/>
-      <line num="30" count="0" type="stmt"/>
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="14" count="5" type="stmt"/>
+      <line num="18" count="5" type="stmt"/>
+      <line num="19" count="5" type="stmt"/>
+      <line num="22" count="5" type="stmt"/>
+      <line num="28" count="5" type="stmt"/>
+      <line num="30" count="5" type="stmt"/>
     </file>
   </project>
 </coverage>
