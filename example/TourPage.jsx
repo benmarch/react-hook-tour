@@ -1,14 +1,14 @@
 import React from 'react'
-import { useTour } from '../lib'
+import { useTour, useStep } from '../lib'
 import LazyStep from './LazyStep'
 
 export default props => {
-  // get a reference to the tour and register step function
-  const { tour, registerStep } = useTour()
+  // get a reference to the tour controller
+  const tour = useTour()
 
   // Define our steps.
   // The return values are refs that we apply to the step targets below.
-  const welcomeStep = registerStep({
+  const welcomeStep = useStep({
     name: 'welcome',
     isModal: true,
     hasBackdrop: true,
@@ -19,7 +19,7 @@ export default props => {
     }
   })
 
-  const controlsStep = registerStep({
+  const controlsStep = useStep({
     name: 'controls',
     hasBackdrop: true,
     placement: 'top',
@@ -30,7 +30,7 @@ export default props => {
     }
   })
 
-  const pageHeaderStep = registerStep({
+  const pageHeaderStep = useStep({
     name: 'pageHeader',
     hasBackdrop: true,
     title: 'Page Header',
@@ -43,7 +43,7 @@ export default props => {
     }
   })
 
-  const titleStep = registerStep({
+  const titleStep = useStep({
     name: 'title',
     title: 'Page Title',
     hasBackdrop: true,
@@ -56,14 +56,14 @@ export default props => {
     }
   })
 
-  const menuButtonStep = registerStep({
+  const menuButtonStep = useStep({
     name: 'menuButton',
     placement: 'right',
     title: 'Menu Button',
     content: 'Click here for additional information',
   })
 
-  const logoStep = registerStep({
+  const logoStep = useStep({
     name: 'logo',
     placement: 'left',
     title: 'Logo',
@@ -77,19 +77,19 @@ export default props => {
     
   })
 
-  const subheadStep = registerStep({
+  const subheadStep = useStep({
     name: 'subhead',
     title: 'Configuration Options',
     content: 'Below here, find all the configuration options for the tour',
   })
 
-  const configOptionsStep = registerStep({
+  const configOptionsStep = useStep({
     name: 'configOptions',
     title: 'Configuration Options',
     content: 'Options will indicate whether they can be used on the tour, the steps, or both',
   })
 
-  const scrollStep = registerStep({
+  const scrollStep = useStep({
     name: 'scroll',
     title: 'The Tour Scrolls',
     content: 'The tour will cause the page to scroll if the step is out of view.'

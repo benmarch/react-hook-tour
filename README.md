@@ -42,13 +42,13 @@ return (
 Register your steps and create a Start button:
 ```js
 // in a nested component
-import { useTour } from 'react-hook-tour'
+import { useTour, useStep } from 'react-hook-tour'
 
 export default props => {
-  const { tour, registerStep } = useTour()
+  const tour = useTour()
 
   // see below for config options
-  const welcomeStep = registerStep({
+  const welcomeStep = useStep({
     name: 'welcome',
     isModal: true,
     hasBackdrop: true,
@@ -56,7 +56,7 @@ export default props => {
     content: 'Welcome to my site',
   })
 
-  const menuStep = registerStep({
+  const menuStep = useStep({
     name: 'menu',
     hasBackdrop: true,
     title: 'Main Menu',
