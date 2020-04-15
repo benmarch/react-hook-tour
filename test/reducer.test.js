@@ -20,7 +20,10 @@ describe('Tour Reducer', () => {
     let selectors
     
     beforeEach(() => {
-      selectors = generateSelectors(initialState) 
+      selectors = {
+        ...generateSelectors(initialState).public,
+        ...generateSelectors(initialState).protected
+      }
     })
 
     describe('getSteps()', () => {      

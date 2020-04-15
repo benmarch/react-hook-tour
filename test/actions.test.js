@@ -19,6 +19,7 @@ describe('Tour Actions', () => {
   let currentStep
   let selectors
   let dispatch
+  let actions
 
   beforeEach(() => {
     currentStep = {
@@ -33,6 +34,11 @@ describe('Tour Actions', () => {
     }
 
     dispatch = jest.fn(() => 'called')
+
+    actions = {
+      ...generateActions(selectors, dispatch).public,
+      ...generateActions(selectors, dispatch).protected
+    }
   })
 
   describe('generateActions()', () => {
@@ -45,9 +51,6 @@ describe('Tour Actions', () => {
 
   describe('start()', () => {    
     it('should dispatch the START action', async () => {
-      // given
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.start()
 
@@ -58,9 +61,6 @@ describe('Tour Actions', () => {
     })
 
     it('should dispatch the SET_STEP_POINTER action', async () => {
-      // given
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.start()
 
@@ -76,7 +76,6 @@ describe('Tour Actions', () => {
 
     it('should trigger the onStart event', async () => {
       // given
-      const actions = generateActions(selectors, dispatch)
       selectors.getConfig.mockReturnValue(() => {})
 
       // when
@@ -90,7 +89,6 @@ describe('Tour Actions', () => {
     it('should not do anything if the tour is already on', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.start()
@@ -106,7 +104,6 @@ describe('Tour Actions', () => {
     it('should dispatch the END action', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.end()
@@ -120,7 +117,6 @@ describe('Tour Actions', () => {
     it('should trigger the onEnd event', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.end()
@@ -130,9 +126,6 @@ describe('Tour Actions', () => {
     })
 
     it('should not do anything if the tour is OFF', async () => {
-      // given
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.end()
 
@@ -146,8 +139,7 @@ describe('Tour Actions', () => {
   describe('pause()', () => {
     it('should dispatch the PAUSE action', async () => {
       // given
-      selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
+      selectors.getStatus.mockReturnValueOnce(TourStatus.ON)    
 
       // when
       await actions.pause()
@@ -161,7 +153,6 @@ describe('Tour Actions', () => {
     it('should trigger the onPause event', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.pause()
@@ -171,9 +162,6 @@ describe('Tour Actions', () => {
     })
 
     it('should not do anything if the tour is OFF', async () => {
-      // given
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.pause()
 
@@ -188,7 +176,6 @@ describe('Tour Actions', () => {
     it('should dispatch the RESUME action', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.PAUSED)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.resume()
@@ -202,7 +189,6 @@ describe('Tour Actions', () => {
     it('should trigger the onResume event', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.PAUSED)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.resume()
@@ -214,7 +200,6 @@ describe('Tour Actions', () => {
     it('should not do anything if the tour is ON', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.resume()
@@ -230,7 +215,6 @@ describe('Tour Actions', () => {
     it('should dispatch the SET_STEP_POINTER action', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.next()
@@ -248,7 +232,6 @@ describe('Tour Actions', () => {
     it('should trigger the onNext event', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.next()
@@ -258,9 +241,6 @@ describe('Tour Actions', () => {
     })
 
     it('should not do anything if the tour is OFF', async () => {
-      // given    
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.next()
 
@@ -273,7 +253,6 @@ describe('Tour Actions', () => {
     it('should dispatch the SET_STEP_POINTER action', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.prev()
@@ -291,7 +270,6 @@ describe('Tour Actions', () => {
     it('should trigger the onPrev event', async () => {
       // given
       selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
-      const actions = generateActions(selectors, dispatch)
 
       // when
       await actions.prev()
@@ -301,9 +279,6 @@ describe('Tour Actions', () => {
     })
 
     it('should not do anything if the tour is OFF', async () => {
-      // given    
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.prev()
 
@@ -314,9 +289,6 @@ describe('Tour Actions', () => {
 
   describe('setStepOrder()', () => {
     it('should dispatch the SET_ORDER action', async () => {
-      // given    
-      const actions = generateActions(selectors, dispatch)
-
       // when
       await actions.setStepOrder()
 
@@ -330,7 +302,6 @@ describe('Tour Actions', () => {
   describe('setCustomState()', () => {
     it('should dispatch the SET_CUSTOM_STATE action', async () => {
       // given    
-      const actions = generateActions(selectors, dispatch)
       const customState = {}
 
       // when
@@ -347,7 +318,6 @@ describe('Tour Actions', () => {
   describe('addStep()', () => {
     it('should dispatch the ADD_STEP action', async () => {
       // given    
-      const actions = generateActions(selectors, dispatch)
       const stepConfig = {}
 
       // when
@@ -362,7 +332,6 @@ describe('Tour Actions', () => {
 
     it('should trigger the onStepAdded event', async () => {
       // given
-      const actions = generateActions(selectors, dispatch)
       const stepConfig = {}
 
       // when
@@ -376,7 +345,6 @@ describe('Tour Actions', () => {
   describe('removeStep()', () => {
     it('should dispatch the REMOVE_STEP action', async () => {
       // given    
-      const actions = generateActions(selectors, dispatch)
       const stepConfig = {}
 
       // when
@@ -391,7 +359,6 @@ describe('Tour Actions', () => {
 
     it('should trigger the onStepRemoved event', async () => {
       // given
-      const actions = generateActions(selectors, dispatch)
       const stepConfig = {}
 
       // when
@@ -405,7 +372,6 @@ describe('Tour Actions', () => {
   describe('setCurrentStep()', () => {
     it('should dispatch the SET_CURRENT_STEP action', async () => {
       // given    
-      const actions = generateActions(selectors, dispatch)
       const step = {}
 
       // when
@@ -422,7 +388,6 @@ describe('Tour Actions', () => {
   describe('waitForStep()', () => {
     it('should dispatch the WAIT_FOR action', async () => {
       // given    
-      const actions = generateActions(selectors, dispatch)
       const stepName = 'myStep'
 
       // when
@@ -439,7 +404,6 @@ describe('Tour Actions', () => {
   describe('setPopoverRef()', () => {
     it('should dispatch the SET_POPOVER_REF action', async () => {
       // given    
-      const actions = generateActions(selectors, dispatch)
       const ref = {}
 
       // when

@@ -1,16 +1,19 @@
-import React, { createRef } from 'react'
+import React from 'react'
 import { usePopper } from 'react-popper'
 import { render } from '@testing-library/react'
-import useTour from '../lib/useTour'
+import { TourStatus } from '../lib/constants'
+import useTourController from '../lib/useTourController'
+import TourProvider from '../lib/TourProvider'
 import TourPopover from '../lib/TourPopover'
 
 jest.mock('react-popper')
-jest.mock('../lib/useTour')
+jest.mock('../lib/useTourController')
 
 describe('TourPopover Component', () => {
   let step
   let tour
   let ref
+  let wrapper
 
   beforeEach(() => {
     ref = {
@@ -23,11 +26,15 @@ describe('TourPopover Component', () => {
     }
 
     tour = {
+      getStatus: () => TourStatus.OFF, // prevents the TourProvider from displaying another instance of TourPopover
       getCurrentStep: () => step,
       setPopoverRef: jest.fn()
     }
 
-    useTour.mockReturnValue({tour})
+    useTourController.mockReturnValue(tour)
+
+    wrapper = ({ children }) => (<TourProvider config={{}}>{children}</TourProvider>)
+
     usePopper.mockReturnValue({
       update: jest.fn(),
       styles: {
@@ -49,7 +56,7 @@ describe('TourPopover Component', () => {
     step.isModal = false
 
     // when
-    render(<TourPopover />)
+    render(<TourPopover />, { wrapper })
 
     // then
     expect(usePopper.mock.calls[0][0]).toBe(ref.current)
@@ -61,7 +68,7 @@ describe('TourPopover Component', () => {
     step.isModal = true
 
     // when
-    render(<TourPopover />)
+    render(<TourPopover />, { wrapper })
 
     // then
     expect(usePopper.mock.calls[0][0]).toHaveProperty('getBoundingClientRect')
@@ -73,7 +80,7 @@ describe('TourPopover Component', () => {
     step.offset = 100    
 
     // when
-    render(<TourPopover />)
+    render(<TourPopover />, { wrapper })
 
     // then
     expect(usePopper.mock.calls[0][2].modifiers[1].options.offset).toEqual([0, 100])
@@ -81,7 +88,7 @@ describe('TourPopover Component', () => {
 
   it('should register the popperElement with the tour', async () => {
     // when
-    render(<TourPopover />)
+    render(<TourPopover />, { wrapper })
 
     expect(tour.setPopoverRef).toHaveBeenCalledWith({
       current: expect.anything()
@@ -94,7 +101,7 @@ describe('TourPopover Component', () => {
     step.PopoverComponent = props => props.step.title
 
     // when
-    const { getByText } = render(<TourPopover />)
+    const { getByText } = render(<TourPopover />, { wrapper })
 
     // then
     expect(getByText('Title').textContent).toBe('Title')
@@ -105,7 +112,7 @@ describe('TourPopover Component', () => {
     step.popoverTemplate = <div>Template</div>
 
     // when
-    const { getByText } = render(<TourPopover />)
+    const { getByText } = render(<TourPopover />, { wrapper })
 
     // then
     expect(getByText('Template').textContent).toBe('Template')
@@ -116,7 +123,7 @@ describe('TourPopover Component', () => {
     step.isModal = true
 
     // when
-    const { getByTestId } = render(<TourPopover />)
+    const { getByTestId } = render(<TourPopover />, { wrapper })
 
     // then
     expect(getByTestId('popover').style.position).toBe('fixed')
@@ -127,7 +134,7 @@ describe('TourPopover Component', () => {
     step.isModal = false
 
     // when
-    const { getByTestId } = render(<TourPopover />)
+    const { getByTestId } = render(<TourPopover />, { wrapper })
 
     // then
     expect(getByTestId('popover').style.color).toBe('red')
@@ -138,7 +145,7 @@ describe('TourPopover Component', () => {
     step.isModal = false
 
     // when
-    const { getByTestId } = render(<TourPopover />)
+    const { getByTestId } = render(<TourPopover />, { wrapper })
 
     // then
     expect(getByTestId('popover').dataset.test).toBe('test')
@@ -149,7 +156,7 @@ describe('TourPopover Component', () => {
     step.popoverClassName = 'POP'
 
     // when
-    const { getByTestId } = render(<TourPopover />)
+    const { getByTestId } = render(<TourPopover />, { wrapper })
 
     // then
     expect(getByTestId('popover').classList).toContain('POP')

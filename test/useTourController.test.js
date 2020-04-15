@@ -19,21 +19,31 @@ describe('useTourController Hook', () => {
 
     generateSelectors.mockImplementation(state => {
       return {
-        getSomething: jest.fn(() => 'something'),
-        getDone: () => state.done,
-        getConfig: key => state[key]
+        public: {
+          getSomething: jest.fn(() => 'something'),
+          getDone: () => state.done,
+          getConfig: key => state[key]
+        },
+        protected: {
+          getSomethingSafe: jest.fn(() => 'safe')
+        }        
       }
     })
 
     generateActions.mockImplementation((selectors, dispatch) => {
       return {
-        doSomething: () => {
-          const something = selectors.getSomething()
-          dispatch({
-            done: something
-          })
-          return 'done'
-        }
+        public: {
+          doSomething: () => {
+            const something = selectors.getSomething()
+            dispatch({
+              done: something
+            })
+            return 'done'
+          }
+        },
+        protected: {
+          doSomethingSafe: jest.fn()
+        }       
       }
     })
   })
