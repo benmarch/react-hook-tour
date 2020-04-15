@@ -12,7 +12,7 @@
     "test": "jest",
     "start": "parcel serve example/index.html",
     "build": "npm run clean && parcel build lib/index.js --target node",
-    "clean": "rm -r dist/"
+    "clean": "rm -rf dist/"
   },
   "author": "Ben March (https://github.com/benmarch)",
   "repository": {
