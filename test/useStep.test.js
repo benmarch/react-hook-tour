@@ -7,6 +7,7 @@ describe('useStep Hook', () => {
   let stepConfig
   let tour
   let wrapper
+  let existingStep
   
   beforeEach(() => {
     stepConfig = {
@@ -15,12 +16,19 @@ describe('useStep Hook', () => {
       configOnStepAndTour: 'both - step'
     }
 
+    existingStep = {
+      name: 'existingStep'
+    }
+
     tour = {
       addStep: jest.fn(),
       removeStep: jest.fn(),
       configOnTourOnly: 'tour',
       configOnStepAndTour: 'both - tour',
-      getConfig: key => tour[key]
+      getConfig: key => tour[key],
+      getSteps: jest.fn(() => ({
+        existingStep
+      }))
     }  
 
     wrapper = ({ children }) => (
@@ -28,12 +36,20 @@ describe('useStep Hook', () => {
     )
   })
 
-  it('should create a ref, assign it to the stepConfig, and return it', () => {      
+  it('should create a ref, assign it to the stepConfig, and return it', () => {    
     // when
     const { result } = renderHook(() => useStep(stepConfig), { wrapper })
 
     // then
     expect(stepConfig.ref).toBe(result.current)
+  })
+
+  it('should use an existing step if it has been pre-registered', () => {
+    // when
+    const { result } = renderHook(() => useStep('existingStep'), { wrapper })
+
+    // then
+    expect(result.current).toBe(existingStep.ref)
   })
 
   it('should assign a getConfig() method to the stepConfig', () => {
@@ -42,6 +58,46 @@ describe('useStep Hook', () => {
 
     // then
     expect(stepConfig.getConfig).toEqual(expect.any(Function))
+  })
+
+  it('should throw if an invalid configuration is passed', () => {
+    // when
+    const { result } = renderHook(() => useStep({}), { wrapper })
+
+    // then
+    expect(result.error.message).toContain('invalid step')
+  })
+
+  it('should throw if an async configuration is passed', () => {
+    // when
+    const { result } = renderHook(() => useStep({fetch: () => {}}), { wrapper })
+
+    // then
+    expect(result.error.message).toContain('async step')
+  })
+
+  it('should throw if an already "used" configuration is passed', () => {
+    // when
+    const { result } = renderHook(() => useStep({ref: {}}), { wrapper })
+
+    // then
+    expect(result.error.message).toContain('reuse a step')
+  })
+
+  it('should throw if a step does not exist', () => {
+    // when
+    const { result } = renderHook(() => useStep('does not exist'), { wrapper })
+
+    // then
+    expect(result.error.message).toContain('non-existent step')
+  })
+
+  it('should throw if attempting to reconfigure a step', () => {
+    // when
+    const { result } = renderHook(() => useStep({name: 'existingStep'}), { wrapper })
+
+    // then
+    expect(result.error.message).toContain('reuse a step')
   })
 
   it('should add the step to the tour', () => {

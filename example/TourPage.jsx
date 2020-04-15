@@ -30,18 +30,7 @@ export default props => {
     }
   })
 
-  const pageHeaderStep = useStep({
-    name: 'pageHeader',
-    hasBackdrop: true,
-    title: 'Page Header',
-    content: 'Contains the header information for the page',
-    onNext() {
-      console.log('Page Header Next')
-    },
-    onPrev() {
-      console.log('Page Header Prev')
-    }
-  })
+  const pageHeaderStep = useStep('pageHeader')
 
   const titleStep = useStep({
     name: 'title',

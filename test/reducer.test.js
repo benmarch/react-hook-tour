@@ -139,13 +139,13 @@ describe('Tour Reducer', () => {
     describe('getConfig()', () => {      
       it('should return the expected value', () => {
         // given
-        initialState.randomKey = 'random value'
+        initialState.tourConfig.randomKey = 'random value'
 
         // when
         const result = selectors.getConfig('randomKey')
 
         // then
-        expect(result).toBe(initialState.randomKey)
+        expect(result).toBe(initialState.tourConfig.randomKey)
       })
     })
   })
@@ -403,7 +403,8 @@ describe('Tour Reducer', () => {
         // then
         expect(newState.hasNextStep).toBe(true)
       })
-      it('should determine that hasNextStep is false when the next step order is an object and does not have a fetch function', () => {
+
+      it('should determine that hasNextStep is true when the next step order is an object and does not have a fetch function', () => {
         // given        
         state.stepOrder = ['first', 'second', {name: 'third'}]
         state.steps = {
@@ -429,7 +430,7 @@ describe('Tour Reducer', () => {
         const newState = reducer(state, action)
 
         // then
-        expect(newState.hasNextStep).toBe(false)
+        expect(newState.hasNextStep).toBe(true)
       })
 
       it('should determine that hasNextStep is false when the current step is the last step', () => {
@@ -519,7 +520,7 @@ describe('Tour Reducer', () => {
         expect(newState.hasPrevStep).toBe(true)
       })
 
-      it('should determine that hasPrevStep is false when the previous step order is an object and does not have a fetch function', () => {
+      it('should determine that hasPrevStep is true when the previous step order is an object and does not have a fetch function', () => {
         // given        
         state.stepOrder = [{name: 'first'}, 'second', 'third']
         state.steps = {
@@ -545,7 +546,7 @@ describe('Tour Reducer', () => {
         const newState = reducer(state, action)
 
         // then
-        expect(newState.hasPrevStep).toBe(false)
+        expect(newState.hasPrevStep).toBe(true)
       })
 
       it('should determine that hasPrevStep is false when the current step is the first step', () => {

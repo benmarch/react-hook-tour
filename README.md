@@ -26,8 +26,16 @@ const tourConfig = {
     'welcome',
     'menu',
     {
-      name: 'nextPage',
-      fetch: () => {...}
+      name: 'async',
+      fetch: () => {
+        router.push('/next-page-with-step')
+      }
+    },
+    {
+      name: 'preconfigured',
+      hasBackdrop: true,
+      title: 'Preconfigured Step',
+      content: 'Steps can be fully configured up front'
     }
   ]
 }
@@ -47,7 +55,7 @@ import { useTour, useStep } from 'react-hook-tour'
 export default props => {
   const tour = useTour()
 
-  // see below for config options
+  // configure your steps here and get a ref (see below for config options)
   const welcomeStep = useStep({
     name: 'welcome',
     isModal: true,
@@ -63,10 +71,13 @@ export default props => {
     content: 'Click here for more options',
   })
 
+  // or reference a preconfigured step and get a ref
+  const preconfiguredStep = useStep('preconfigured')
+
   return (
     <div ref={welcomeStep}>
       <div ref={menuStep}>Main Menu</div>
-      <button onClick={tour.start}>Start Tour</div>
+      <button ref={preconfiguredStep} onClick={tour.start}>Start Tour</div>
     </div>
   )
 }
@@ -98,15 +109,16 @@ export default props => {
 
 Configurable for `Tour` only
 
-All steps must be listed here. Each element in the array can either be a string representing the step name, or a step placeholder object.
+All steps must be listed here. Each element in the array can either be a string representing the step name, a preconfigured step, or a step placeholder object.
 
 If it's a string, the step must be registered by the time the _previous_ step is displayed.
 
-If it's an object, it can take the following options:
+If it is an object, it can be a fully configured step and can contain any of the configuration options below, but it must not include a `fetch()` method.
+
+Or, it can take the following options as a placeholder that instructs the tour to assume that the step exists but has not yet loaded:
 
  - `name` - required, the name of the step
- - `fetch` - a function the returns a promise. Called when the step is to be displayed but is not yet registered. It can change the route, fetch data, or conduct any other action that enabled the step to load and register. When present, the tour will pause and will only resume once the step is registered. Life cycle events can be used to manage the UI when in the fetching state.
-
+ - `fetch` - required, a function the returns a promise. Called when the step is to be displayed but is not yet registered. It can change the route, fetch data, or conduct any other action that enabled the step to load and register. When present, the tour will pause and will only resume once the step is registered. Life cycle events can be used to manage the UI when in the fetching state.
 
 ### `name <string>` required
 

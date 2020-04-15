@@ -18,7 +18,18 @@ const tourConfig = {
   },
   stepOrder: [
     'welcome',
-    'pageHeader',
+    {
+      name: 'pageHeader',
+      hasBackdrop: true,
+      title: 'Page Header',
+      content: 'Contains the header information for the page',
+      onNext() {
+        console.log('Page Header Next')
+      },
+      onPrev() {
+        console.log('Page Header Prev')
+      }
+    },
     'title',
     'menuButton',
     'scroll',

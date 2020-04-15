@@ -287,18 +287,6 @@ describe('Tour Actions', () => {
     })
   })
 
-  describe('setStepOrder()', () => {
-    it('should dispatch the SET_ORDER action', async () => {
-      // when
-      await actions.setStepOrder()
-
-      // then
-      expect(dispatch).toHaveBeenCalledWith({
-        type: SET_ORDER
-      })
-    })
-  })
-
   describe('setCustomState()', () => {
     it('should dispatch the SET_CUSTOM_STATE action', async () => {
       // given    
