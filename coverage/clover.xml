@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1586920067528" clover="3.2.0">
-  <project timestamp="1586920067529" name="All files">
-    <metrics statements="216" coveredstatements="160" conditionals="157" coveredconditionals="82" methods="51" coveredmethods="44" elements="424" coveredelements="286" complexity="0" loc="216" ncloc="216" packages="1" files="10" classes="10"/>
+<coverage generated="1586923408765" clover="3.2.0">
+  <project timestamp="1586923408765" name="All files">
+    <metrics statements="216" coveredstatements="176" conditionals="159" coveredconditionals="98" methods="51" coveredmethods="46" elements="426" coveredelements="320" complexity="0" loc="216" ncloc="216" packages="1" files="10" classes="10"/>
     <file name="TourPopover.jsx" path="/Users/ben.march/Projects/react-hook-tour/lib/TourPopover.jsx">
-      <metrics statements="18" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <line num="5" count="2" type="stmt"/>
+      <metrics statements="18" coveredstatements="17" conditionals="16" coveredconditionals="16" methods="3" coveredmethods="2"/>
+      <line num="5" count="4" type="stmt"/>
       <line num="7" count="0" type="stmt"/>
-      <line num="19" count="0" type="stmt"/>
-      <line num="20" count="0" type="stmt"/>
-      <line num="22" count="0" type="stmt"/>
-      <line num="23" count="0" type="stmt"/>
-      <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="44" count="0" type="stmt"/>
-      <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="46" count="0" type="stmt"/>
-      <line num="50" count="0" type="stmt"/>
-      <line num="59" count="0" type="stmt"/>
-      <line num="60" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="61" count="0" type="stmt"/>
-      <line num="62" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="63" count="0" type="stmt"/>
-      <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="75" count="0" type="stmt"/>
+      <line num="19" count="20" type="stmt"/>
+      <line num="20" count="20" type="stmt"/>
+      <line num="22" count="20" type="stmt"/>
+      <line num="23" count="20" type="stmt"/>
+      <line num="25" count="20" type="cond" truecount="2" falsecount="0"/>
+      <line num="44" count="20" type="stmt"/>
+      <line num="45" count="20" type="cond" truecount="2" falsecount="0"/>
+      <line num="46" count="10" type="stmt"/>
+      <line num="50" count="20" type="stmt"/>
+      <line num="59" count="20" type="stmt"/>
+      <line num="60" count="20" type="cond" truecount="2" falsecount="0"/>
+      <line num="61" count="2" type="stmt"/>
+      <line num="62" count="18" type="cond" truecount="2" falsecount="0"/>
+      <line num="63" count="2" type="stmt"/>
+      <line num="66" count="20" type="cond" truecount="2" falsecount="0"/>
+      <line num="73" count="20" type="stmt"/>
     </file>
     <file name="TourProvider.jsx" path="/Users/ben.march/Projects/react-hook-tour/lib/TourProvider.jsx">
       <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
-      <line num="6" count="3" type="stmt"/>
+      <line num="6" count="4" type="stmt"/>
       <line num="9" count="6" type="stmt"/>
       <line num="10" count="6" type="cond" truecount="2" falsecount="0"/>
       <line num="12" count="6" type="stmt"/>
@@ -83,24 +83,24 @@
     </file>
     <file name="constants.js" path="/Users/ben.march/Projects/react-hook-tour/lib/constants.js">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <line num="2" count="9" type="stmt"/>
-      <line num="3" count="9" type="stmt"/>
-      <line num="4" count="9" type="stmt"/>
-      <line num="5" count="9" type="stmt"/>
-      <line num="6" count="9" type="stmt"/>
-      <line num="7" count="9" type="stmt"/>
-      <line num="8" count="9" type="stmt"/>
-      <line num="9" count="9" type="stmt"/>
-      <line num="10" count="9" type="stmt"/>
-      <line num="11" count="9" type="stmt"/>
-      <line num="12" count="9" type="stmt"/>
-      <line num="13" count="9" type="stmt"/>
-      <line num="15" count="9" type="stmt"/>
+      <line num="2" count="10" type="stmt"/>
+      <line num="3" count="10" type="stmt"/>
+      <line num="4" count="10" type="stmt"/>
+      <line num="5" count="10" type="stmt"/>
+      <line num="6" count="10" type="stmt"/>
+      <line num="7" count="10" type="stmt"/>
+      <line num="8" count="10" type="stmt"/>
+      <line num="9" count="10" type="stmt"/>
+      <line num="10" count="10" type="stmt"/>
+      <line num="11" count="10" type="stmt"/>
+      <line num="12" count="10" type="stmt"/>
+      <line num="13" count="10" type="stmt"/>
+      <line num="15" count="10" type="stmt"/>
     </file>
     <file name="reducer.js" path="/Users/ben.march/Projects/react-hook-tour/lib/reducer.js">
       <metrics statements="42" coveredstatements="41" conditionals="21" coveredconditionals="20" methods="15" coveredmethods="15"/>
-      <line num="17" count="4" type="stmt"/>
-      <line num="38" count="4" type="stmt"/>
+      <line num="17" count="5" type="stmt"/>
+      <line num="38" count="5" type="stmt"/>
       <line num="39" count="18" type="stmt"/>
       <line num="41" count="18" type="cond" truecount="2" falsecount="0"/>
       <line num="42" count="4" type="stmt"/>
@@ -144,7 +144,7 @@
     </file>
     <file name="smartScroll.js" path="/Users/ben.march/Projects/react-hook-tour/lib/smartScroll.js">
       <metrics statements="23" coveredstatements="22" conditionals="36" coveredconditionals="30" methods="2" coveredmethods="2"/>
-      <line num="1" count="4" type="stmt"/>
+      <line num="1" count="5" type="stmt"/>
       <line num="11" count="18" type="stmt"/>
       <line num="13" count="18" type="stmt"/>
       <line num="14" count="27" type="stmt"/>
