@@ -10,6 +10,8 @@
   ],
   "scripts": {
     "test": "jest",
+    "test:watch": "jest -i --watchAll",
+    "test:coverage": "jest --coverage",
     "start": "parcel serve example/index.html",
     "build": "npm run clean && parcel build lib/index.js --target node",
     "clean": "rm -rf dist/"

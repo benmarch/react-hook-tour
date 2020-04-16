@@ -1,47 +1,36 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import { TourStatus } from '../lib/constants'
-import useTourController from '../lib/useTourController'
+import { render, act } from '@testing-library/react'
+import generateActions from '../lib/actions'
+import { generateSelectors } from '../lib/reducer'
+import useStepChange from '../lib/useStepChange'
 import TourPopover from '../lib/TourPopover'
 import TourProvider, { TourContext } from '../lib/TourProvider'
 
-jest.mock('../lib/useTourController')
+jest.mock('../lib/useStepChange')
 jest.mock('../lib/TourPopover')
 
 describe('TourProvider Component', () => {
-  it('should pass the config to the useTourController hook', () => {
-    // given
-    const tourConfig = {}
-    useTourController.mockReturnValue({
-      getStatus: () => TourStatus.OFF,
-      getCurrentStep: () => null
-    })
+  let tourConfig
 
-    // when
-    render(
-      <TourProvider config={tourConfig}></TourProvider>
-    )
+  beforeEach(() => {
+    tourConfig = {
+      stepOrder: ['first', 'second', 'third']
+    }
 
-    // then
-    expect(useTourController).toHaveBeenCalledWith(tourConfig)
+    TourPopover.mockImplementation(() => 'popover')
   })
 
-  it('should provide the tourController to the children', () => {
+  it('should initialize all steps based on the stepOrder', () => {
     // given
-    const tourConfig = {}
-    const tourController = {
-      getStatus: () => TourStatus.OFF,
-      getCurrentStep: () => null
-    }
-    useTourController.mockReturnValue(tourController)
-
+    tourConfig.stepOrder = [{name: 'first'}, 'second', {name: 'third', fetch: () => {}}]
+  
     // when
-    let context
+    let tourController
     render(
       <TourProvider config={tourConfig}>
         <TourContext.Consumer>
           {value => {
-            context = value
+            tourController = value
             return null
           }}
         </TourContext.Consumer>
@@ -49,37 +38,131 @@ describe('TourProvider Component', () => {
     )
 
     // then
-    expect(context).toBe(tourController)
+    expect(tourController.getSteps()).toEqual({
+      first: {
+        name: 'first'
+      }
+    })
+  })
+
+  it('should throw if provided an invalid step config', () => {
+    // given
+    jest.spyOn(global.console, 'error').mockImplementation(() => {})
+    tourConfig.stepOrder = [{name: 'first'}, 'second', {}]
+  
+    // when
+    const shouldThrow = () => render(<TourProvider config={tourConfig}></TourProvider>)    
+
+    // then
+    expect(shouldThrow).toThrow('Step configuration at position 2 is not valid.')
+  })
+
+  it('should use the tourConfig to initialize the reducer state', () => {
+    // given
+    tourConfig.configOption = 1
+
+    // when
+    let tourController
+    render(
+      <TourProvider config={tourConfig}>
+        <TourContext.Consumer>
+          {value => {
+            tourController = value
+            return null
+          }}
+        </TourContext.Consumer>
+      </TourProvider>
+    )
+
+    // then    
+    expect(tourController.getConfig('configOption')).toBe(1)
+  })
+
+  it('should share the state between the selectors and actions', () => {
+    // given
+    const customState = {
+      custom: 'state'
+    }
+
+    // when
+    let tourController
+    render(
+      <TourProvider config={tourConfig}>
+        <TourContext.Consumer>
+          {value => {
+            tourController = value
+            return null
+          }}
+        </TourContext.Consumer>
+      </TourProvider>
+    )
+    act(() => {
+      tourController.setCustomState(customState)
+    })
+
+    // then
+    expect(tourController.getCustomState()).toEqual(customState)
+  })
+
+  it('should use the useStepChangeHook', () => {
+    // when
+    let tourController
+    render(
+      <TourProvider config={tourConfig}>
+        <TourContext.Consumer>
+          {value => {
+            tourController = value
+            return null
+          }}
+        </TourContext.Consumer>
+      </TourProvider>
+    )
+
+    // then
+    expect(useStepChange).toHaveBeenCalledWith(tourController)
+  })
+
+  it('should provide the tourController to the children', () => {
+    // given
+    const selectors = generateSelectors({})
+    const actions = generateActions({}, ()=>{})
+
+    // when
+    let tourController
+    render(
+      <TourProvider config={tourConfig}>
+        <TourContext.Consumer>
+          {value => {
+            tourController = value
+            return null
+          }}
+        </TourContext.Consumer>
+      </TourProvider>
+    )
+
+    // then
+    expect(Object.keys(tourController)).toEqual(expect.arrayContaining(Object.keys(selectors.public)))
+    expect(Object.keys(tourController)).toEqual(expect.arrayContaining(Object.keys(selectors.protected)))
+    expect(Object.keys(tourController.public)).toEqual(expect.arrayContaining(Object.keys(selectors.public)))    
+    expect(Object.keys(tourController.public)).not.toEqual(expect.arrayContaining(Object.keys(selectors.protected)))
+
+    expect(Object.keys(tourController)).toEqual(expect.arrayContaining(Object.keys(actions.public)))
+    expect(Object.keys(tourController)).toEqual(expect.arrayContaining(Object.keys(actions.protected)))
+    expect(Object.keys(tourController.public)).toEqual(expect.arrayContaining(Object.keys(actions.public)))    
+    expect(Object.keys(tourController.public)).not.toEqual(expect.arrayContaining(Object.keys(actions.protected)))
   })
 
   it('should not show the popover if the tour is OFF', () => {
-    // given    
-    const tourConfig = {}
-    useTourController.mockReturnValue({
-      getStatus: () => TourStatus.OFF,
-      getCurrentStep: () => null
-    })
-    TourPopover.mockImplementation(() => 'popover')
-
     // when
     const { queryByText } = render(
       <TourProvider config={tourConfig}></TourProvider>
     )
 
     // then
-
     expect(queryByText('popover')).toEqual(null)
   })
 
   it('should not show the popover if the tour is ON but there is no current step', () => {
-    // given    
-    const tourConfig = {}
-    useTourController.mockReturnValue({
-      getStatus: () => TourStatus.ON,
-      getCurrentStep: () => null
-    })
-    TourPopover.mockImplementation(() => 'popover')
-
     // when
     const { queryByText } = render(
       <TourProvider config={tourConfig}></TourProvider>
@@ -90,38 +173,46 @@ describe('TourProvider Component', () => {
     expect(queryByText('popover')).toEqual(null)
   })
 
-  it('should not show the popover if the tour is PAUSED', () => {
-    // given    
-    const tourConfig = {}
-    useTourController.mockReturnValue({
-      getStatus: () => TourStatus.PAUSED,
-      getCurrentStep: () => ({})
-    })
-    TourPopover.mockImplementation(() => 'popover')
-
+  it('should not show the popover if the tour is PAUSED', async () => {
     // when
+    let tourController
     const { queryByText } = render(
-      <TourProvider config={tourConfig}></TourProvider>
+      <TourProvider config={tourConfig}>
+        <TourContext.Consumer>
+          {value => {
+            tourController = value
+            return null
+          }}
+        </TourContext.Consumer>
+      </TourProvider>
     )
+    await act(async () => {
+      await tourController.start()
+      tourController.setCurrentStep({name: 'first'})      
+      await tourController.pause()
+    })
 
     // then
-
     expect(queryByText('popover')).toEqual(null)
   })
 
-  it('should show the popover if the tour is ON and there is a current step', () => {
-    // given    
-    const tourConfig = {}
-    useTourController.mockReturnValue({
-      getStatus: () => TourStatus.ON,
-      getCurrentStep: () => ({})
-    })
-    TourPopover.mockImplementation(() => 'popover')
-
+  it('should show the popover if the tour is ON and there is a current step', async () => {
     // when
+    let tourController
     const { getByText } = render(
-      <TourProvider config={tourConfig}></TourProvider>
+      <TourProvider config={tourConfig}>
+        <TourContext.Consumer>
+          {value => {
+            tourController = value
+            return null
+          }}
+        </TourContext.Consumer>
+      </TourProvider>
     )
+    await act(async () => {
+      await tourController.start()
+      tourController.setCurrentStep({name: 'first'})      
+    })
 
     // then
     expect(getByText('popover')).toBeDefined()

@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect, createElement } from 'react'
+import React, { useState, useEffect, createElement } from 'react'
 import { usePopper } from 'react-popper'
-import { TourContext } from './TourProvider'
 
 const modalVirtualElement = {
   getBoundingClientRect() {
@@ -15,8 +14,8 @@ const modalVirtualElement = {
   }
 }
 
-export default () => {
-  const tour = useContext(TourContext)
+export default props => {
+  const tour = props.tour
   const step = tour.getCurrentStep()
 
   const [ popperElement, setPopperElement ] = useState(null)
