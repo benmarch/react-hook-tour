@@ -1,4 +1,4 @@
-import React, { useReducer} from 'react'
+import React, { useReducer } from 'react'
 import generateActions from './actions'
 import reducer, { initialState, generateSelectors } from './reducer'
 import { getStepConfigType } from './utils'
