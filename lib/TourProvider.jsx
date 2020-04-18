@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import generateActions from './actions'
 import reducer, { initialState, generateSelectors } from './reducer'
 import { getStepConfigType } from './utils'
@@ -54,6 +54,17 @@ export default props => {
       ...actions.public
     }
   }
+
+  useEffect(() => {
+    if (tourConfig.debug && console) {
+      console.log({
+        'react-hook-tour': {
+          state,
+          tourController
+        }
+      })
+    }
+  }, [state])
 
   // listen for step transitions and properly handle them
   useStepChange(tourController)
