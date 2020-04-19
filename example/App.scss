@@ -1,8 +1,14 @@
+body {
+  color: #fff;
+  background-color: #000;
+}
+
 .tour-popover {
+  color: #000;
   z-index: 100;
 }
 
 .tour-backdrop-component {
   z-index: 99;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(255, 255, 255, .3);
 }
