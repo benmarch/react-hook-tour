@@ -34,7 +34,7 @@ export default props => {
       {
         name: 'offset',
         options: {
-          offset: [0, step.getConfig('offset') || 0]
+          offset: [step.getConfig('skid'), step.getConfig('offset')]
         }
       }
     ],
@@ -56,22 +56,22 @@ export default props => {
   }
 
   let popoverTemplate = null
-  if (step.getConfig('PopoverComponent')) {
-    popoverTemplate = createElement(step.getConfig('PopoverComponent'), templateProps)
-  } else if (step.getConfig('popoverTemplate')) {
-    popoverTemplate = step.getConfig('popoverTemplate')
+  if (step.getConfig('popover.template')) {
+    popoverTemplate = step.getConfig('popover.template')
+  } else if (step.getConfig('popover.Component')) {
+    popoverTemplate = createElement(step.getConfig('popover.Component'), templateProps)
   }
 
-  const popoverStyles = step.getConfig('isModal') ? {
+  const popoverStyles = step.getConfig('isModal') ? step.getConfig('popover.modalStyles', {
     position: 'fixed',
     top: '50vh',
     left: '50vw',
     transform: 'translate(-50%, -50%)'
-  } : popper.styles.popper
+  }) : popper.styles.popper
 
   return (
     <div  ref={setPopperElement} 
-          className={step.getConfig('popoverClassName') || 'tour-popover'} 
+          className={`${step.getConfig('popover.className', 'tour-popover')} ${step.getConfig('isModal') ? 'is-modal' : 'is-attached'}`} 
           style={popoverStyles} 
           {...popper.attributes.popper}
           data-testid="popover">

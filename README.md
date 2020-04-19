@@ -16,12 +16,15 @@ Configure your tour and wrap your app with the TourProvider (see below for confi
 **NOTE:** A PopoverComponent is required, and it is recommended that you start with the template in `example/PopoverTemplate.jsx`:
 ```js
 import { TourProvider } from 'react-hook-tour'
-import PopoverComponent from './Popover'
+import Popover from './Popover'
 
 // configure the tour
 const tourConfig = {
   name: 'My First Tour',
-  PopoverComponent,
+  popover: {
+    Component: Popover,
+    className: 'my-first-tour-popover'
+  }
   stepOrder: [
     'welcome',
     'menu',
@@ -91,11 +94,14 @@ export default props => {
  - isModal
  - hasBackdrop
  - offset
+ - skid
  - scrollOffsets
- - PopoverComponent
- - popoverTemplate 
- - popoverClassName
- - backdropClassName
+ - popover
+   - Component
+   - template
+   - className
+   - modalStyles
+ - backdrop
  - onStart
  - onEnd
  - onNext
@@ -157,6 +163,12 @@ Configurable for `Tour` and `Step`
 
 Number of pixels away from the target the popover will be. Useful for styling arrows; see the example app for configuration.
 
+### `skid <number>`
+
+Configurable for `Tour` and `Step`
+
+Number of pixels off center from the target the popover will be. For example, if the `placement` is set to `'top'` pr `'bottom'` then a negative `skid` will move the popover to the left, and a positive `skid` will move it to the right.
+
 ### `scrollOffsets <object>`
 
 Configurable for `Tour` and `Step`
@@ -171,11 +183,15 @@ Addition scroll distances for ensuring the popover and target remain in the view
 }
 ```
 
-### `PopoverComponent <React.Component>`
+### `popover <Object>`
 
 Configurable for `Tour` and `Step`
 
-**NOTE the capital _P_ in PopoverComponent!**
+Configures the popover and takes the following options:
+
+#### `Component <React.Component>` required (or `template`)
+
+**NOTE the capital _C_ in Component!**
 
 A reference to a React Component that will be rendered within the popover element. It will receive the following props:
 
@@ -188,23 +204,21 @@ A reference to a React Component that will be rendered within the popover elemen
 
 See `example/PopoverTemplate.jsx` for an example.
 
-### `popoverTemplate <ReactNode>`
+#### `template <ReactNode>` required (or `Component`)
 
-Configurable for `Tour` and `Step`
+To be used _instead of_ `popover.Component`. This is an actual node instead of a component, and it does not receive any props. It is usefull if you need a static template for a given step. If both `popover.Component` and `popover.template` are set, `popover.template` will take precedence.
 
-To be used _instead of_ `PopoverComponent`. This is an actual node instead of a component. It does not receive any props.
-
-### `popoverClassName <string>`
-
-Configurable for `Tour` and `Step`
+#### `className <string>`
 
 The className to add to the outer popover element.
 
-### `backdropClassName <string>`
+### `backdrop <Object>`
 
 Configurable for `Tour` and `Step`
 
-The className to add to the backdrop elements. This actually only adds a prefix to the backdrop elements. To properly style them, the full className is `<backdropClassName>-component`. See benmarch/hone and the example app for usage.
+This object is passed directly to [Hone](https://github.com/benmarch/hone) to configure the optional backdrop. Please note that `react-hook-took` manipulates these options based on the step config, so if you overwrite them it could break things!
+
+The most relevant option is `classPrefix` which can only be set on the `Tour` (for now, for performance reasons). To properly style the backdrop, the full className would be `<classPrefix>-component`. See benmarch/hone and the example app for usage.
 
 ### Life cycle events
 

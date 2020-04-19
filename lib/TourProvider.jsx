@@ -2,7 +2,7 @@ import React, { useReducer, useEffect } from 'react'
 import generateActions from './actions'
 import reducer, { initialState, generateSelectors } from './reducer'
 import { getStepConfigType } from './utils'
-import { TourStatus, StepConfigType } from './constants'
+import { TourStatus, StepConfigType, defaultTourConfig } from './constants'
 import useStepChange from './useStepChange'
 import TourPopover from './TourPopover'
 
@@ -32,7 +32,10 @@ export default props => {
     ...initialState,
     steps,
     stepOrder: tourConfig.stepOrder,
-    tourConfig
+    tourConfig: {
+      ...defaultTourConfig,
+      ...tourConfig,
+    }
   })
   const selectors = generateSelectors(state)
   const allSelectors = {
@@ -55,6 +58,7 @@ export default props => {
     }
   }
 
+  // debug option
   useEffect(() => {
     if (tourConfig.debug && console) {
       console.log({

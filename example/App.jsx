@@ -8,8 +8,10 @@ import PopoverTemplate from './PopoverTemplate'
 // **NOTE:** All steps must be listed here either as strings or placeholder step configs 
 const tourConfig = {
   name: 'Example Tour',
-  PopoverComponent: PopoverTemplate,
   offset: 10,
+  popover: {
+    Component: PopoverTemplate,  
+  },
   scrollOffsets: {
     top: 100,
     left: 100,
