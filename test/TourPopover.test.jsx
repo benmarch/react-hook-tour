@@ -2,6 +2,7 @@ import React from 'react'
 import { usePopper } from 'react-popper'
 import { render } from '@testing-library/react'
 import { TourStatus } from '../lib/constants'
+import { get } from '../lib/utils'
 import TourPopover from '../lib/TourPopover'
 
 jest.mock('react-popper')
@@ -17,7 +18,8 @@ describe('TourPopover Component', () => {
     }
 
     step = {
-      getConfig: jest.fn(key => step[key]),
+      getConfig: jest.fn((key, defaultVal) => get(step, key, defaultVal)),
+      popover: {},
       ref,
     }
 
@@ -67,15 +69,16 @@ describe('TourPopover Component', () => {
     expect(usePopper.mock.calls[0][2].strategy).toBe('fixed')
   })
 
-  it('should use the configured offset', () => {
+  it('should use the configured skid and offset', () => {
     // given
-    step.offset = 100    
+    step.offset = 100   
+    step.skid = 200 
 
     // when
     render(<TourPopover tour={tour} />)
 
     // then
-    expect(usePopper.mock.calls[0][2].modifiers[1].options.offset).toEqual([0, 100])
+    expect(usePopper.mock.calls[0][2].modifiers[1].options.offset).toEqual([200, 100])
   })
 
   it('should register the popperElement with the tour', async () => {
@@ -90,7 +93,7 @@ describe('TourPopover Component', () => {
   it('should render the PopoverComponent with the proper props', () => {
     // given 
     step.title = 'Title'
-    step.PopoverComponent = props => props.step.title
+    step.popover.Component = props => props.step.title
 
     // when
     const { getByText } = render(<TourPopover tour={tour} />)
@@ -101,7 +104,7 @@ describe('TourPopover Component', () => {
 
   it('should render the popoverTemplate', () => {
     // given 
-    step.popoverTemplate = <div>Template</div>
+    step.popover.template = <div>Template</div>
 
     // when
     const { getByText } = render(<TourPopover tour={tour} />)
@@ -145,7 +148,7 @@ describe('TourPopover Component', () => {
 
   it('should use the configured className', () => {
     // given 
-    step.popoverClassName = 'POP'
+    step.popover.className = 'POP'
 
     // when
     const { getByTestId } = render(<TourPopover tour={tour} />)

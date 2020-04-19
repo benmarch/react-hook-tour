@@ -1,6 +1,7 @@
 import React from 'react'
 import { renderHook } from '@testing-library/react-hooks'
 import { TourContext } from '../lib/TourProvider'
+import { get } from '../lib/utils'
 import useStep from '../lib/useStep'
 
 describe('useStep Hook', () => {
@@ -8,6 +9,8 @@ describe('useStep Hook', () => {
   let tour
   let wrapper
   let existingStep
+  let addedSteps
+  let removedSteps
   
   beforeEach(() => {
     stepConfig = {
@@ -20,12 +23,15 @@ describe('useStep Hook', () => {
       name: 'existingStep'
     }
 
+    addedSteps = {}
+    removedSteps = {}
+
     tour = {
-      addStep: jest.fn(),
-      removeStep: jest.fn(),
+      addStep: jest.fn(step => addedSteps[step.name] = step),
+      removeStep: jest.fn(step => removedSteps[step.name] = step),
       configOnTourOnly: 'tour',
       configOnStepAndTour: 'both - tour',
-      getConfig: key => tour[key],
+      getConfig: jest.fn((key, defaultVal) => get(tour, key, defaultVal)),
       getSteps: jest.fn(() => ({
         existingStep
       }))
@@ -41,7 +47,7 @@ describe('useStep Hook', () => {
     const { result } = renderHook(() => useStep(stepConfig), { wrapper })
 
     // then
-    expect(stepConfig.ref).toBe(result.current)
+    expect(addedSteps.newStep.ref).toBe(result.current)
   })
 
   it('should use an existing step if it has been pre-registered', () => {
@@ -57,7 +63,7 @@ describe('useStep Hook', () => {
     renderHook(() => useStep(stepConfig), { wrapper })
 
     // then
-    expect(stepConfig.getConfig).toEqual(expect.any(Function))
+    expect(addedSteps.newStep.getConfig).toEqual(expect.any(Function))
   })
 
   it('should throw if an invalid configuration is passed', () => {
@@ -92,12 +98,12 @@ describe('useStep Hook', () => {
     expect(result.error.message).toContain('non-existent step')
   })
 
-  it('should throw if attempting to reconfigure a step', () => {
+  it('should merge a step config with the preconfiguration', () => {
     // when
-    const { result } = renderHook(() => useStep({name: 'existingStep'}), { wrapper })
+    const { result } = renderHook(() => useStep({name: 'existingStep', newConfig: 'new'}), { wrapper })
 
     // then
-    expect(result.error.message).toContain('reuse a step')
+    expect(addedSteps.existingStep.newConfig).toBe('new')
   })
 
   it('should add the step to the tour', () => {
@@ -105,7 +111,8 @@ describe('useStep Hook', () => {
     renderHook(() => useStep(stepConfig), { wrapper })
 
     // then
-    expect(tour.addStep).toHaveBeenCalledWith(stepConfig)
+    expect(tour.addStep).toHaveBeenCalled()
+    expect(addedSteps.newStep).toMatchObject(stepConfig)
     expect(tour.removeStep).not.toHaveBeenCalledWith(stepConfig)
   })
 
@@ -117,7 +124,9 @@ describe('useStep Hook', () => {
     unmount()
 
     // then
-    expect(tour.removeStep).toHaveBeenCalledWith(stepConfig)
+    expect(tour.addStep).toHaveBeenCalled()
+    expect(tour.removeStep).toHaveBeenCalled()
+    expect(removedSteps.newStep).toMatchObject(stepConfig)
   })
 
   describe('getConfig()', () => {
@@ -126,10 +135,10 @@ describe('useStep Hook', () => {
       renderHook(() => useStep(stepConfig), { wrapper })
 
       // then      
-      expect(stepConfig.getConfig).toEqual(expect.any(Function))
-      expect(stepConfig.getConfig('configOnStepOnly')).toBe('step')
-      expect(stepConfig.getConfig('configOnStepAndTour')).toBe('both - step')
-      expect(stepConfig.getConfig('configOnNeitherStepOrTour')).toBeUndefined()
+      expect(addedSteps.newStep.getConfig).toEqual(expect.any(Function))
+      expect(addedSteps.newStep.getConfig('configOnStepOnly')).toBe('step')
+      expect(addedSteps.newStep.getConfig('configOnStepAndTour')).toBe('both - step')
+      expect(addedSteps.newStep.getConfig('configOnNeitherStepOrTour')).toBeUndefined()
     })
 
     it('should return a config value from the tour if it is defined', () => {
@@ -137,9 +146,9 @@ describe('useStep Hook', () => {
       renderHook(() => useStep(stepConfig), { wrapper })
 
       // then      
-      expect(stepConfig.getConfig).toEqual(expect.any(Function))
-      expect(stepConfig.getConfig('configOnTourOnly')).toBe('tour')
-      expect(stepConfig.getConfig('configOnStepAndTour')).toBe('both - step')    
+      expect(addedSteps.newStep.getConfig).toEqual(expect.any(Function))
+      expect(addedSteps.newStep.getConfig('configOnTourOnly')).toBe('tour')
+      expect(addedSteps.newStep.getConfig('configOnStepAndTour')).toBe('both - step')    
     })
   })
 })

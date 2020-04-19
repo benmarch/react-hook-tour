@@ -43,7 +43,9 @@ describe('useStepChange Hook', () => {
     stepOrder = ['first', 'second', 'third']
 
     tour = {
-      backdropClassName: 'my-class',
+      backdrop: {
+        classPrefix: 'my-class'
+      },
       getConfig: key => tour[key],
       getStatus: jest.fn(() => TourStatus.ON),
       getSteps: jest.fn(() => steps),
@@ -226,7 +228,9 @@ describe('useStepChange Hook', () => {
       const currentStep = makeStep('second', {
         hasBackdrop: true,
         isModal: true,
-        backdropClassName: 'my-backdrop'
+        backdrop: {
+          classPrefix: 'my-backdrop',
+        }
       })
       tour.getCurrentStep.mockReturnValue(currentStep)
 
@@ -245,7 +249,9 @@ describe('useStepChange Hook', () => {
       const currentStep = makeStep('second', {
         hasBackdrop: true,
         isModal: false,
-        backdropClassName: 'my-backdrop'
+        backdrop: {
+          classPrefix: 'my-backdrop',
+        }
       })
       tour.getCurrentStep.mockReturnValue(currentStep)
 

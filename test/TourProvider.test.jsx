@@ -41,6 +41,9 @@ describe('TourProvider Component', () => {
     expect(tourController.getSteps()).toEqual({
       first: {
         name: 'first'
+      },
+      third: {
+        name: 'third'
       }
     })
   })
