@@ -377,7 +377,7 @@ describe('Tour Reducer', () => {
 
       it('should determine that hasNextStep is true when the next step order is an object and has a fetch function', () => {
         // given        
-        state.stepOrder = ['first', 'second', {fetch: () => {}}]
+        state.stepOrder = ['first', 'second', {name: 'third', fetch: () => {}}]
         state.steps = {
           first: {
             name: 'first'
@@ -493,7 +493,7 @@ describe('Tour Reducer', () => {
 
       it('should determine that hasPrevStep is true when the previous step order is an object and has a fetch function', () => {
         // given        
-        state.stepOrder = [{fetch: () => {}}, 'second', 'third']
+        state.stepOrder = [{name: 'first', fetch: () => {}}, 'second', 'third']
         state.steps = {
           first: {
             name: 'first'

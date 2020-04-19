@@ -76,7 +76,7 @@ describe('useStep Hook', () => {
 
   it('should throw if an async configuration is passed', () => {
     // when
-    const { result } = renderHook(() => useStep({fetch: () => {}}), { wrapper })
+    const { result } = renderHook(() => useStep({name: 'async', fetch: () => {}}), { wrapper })
 
     // then
     expect(result.error.message).toContain('async step')

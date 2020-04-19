@@ -110,7 +110,25 @@ describe('useStepChange Hook', () => {
         expect(tour.setCurrentStep).toHaveBeenCalledWith(steps.second)
       })
 
-      it('should fetch the next step if the next step order is an object with fetch', () => {
+      it('should set the next step if the next step order is an object with fetch and the step has been registered', () => {
+        // given
+        tour.waitForStep = jest.fn()
+        stepOrder[1] = {
+          name: 'second',
+          fetch: jest.fn(),
+          onNext: () => {}
+        }
+        
+        // when
+        renderHook(() => useStepChange(tour))
+
+        // then
+        expect(tour.setCurrentStep).toHaveBeenCalledWith(steps.second)
+        expect(tour.waitForStep).not.toHaveBeenCalled()
+        expect(stepOrder[1].fetch).not.toHaveBeenCalled()
+      })
+
+      it('should fetch the next step if the next step order is an object with fetch and the step has not been registered', () => {
         // given
         tour.waitForStep = jest.fn()
         stepOrder[1] = {

@@ -107,6 +107,23 @@ describe('TourProvider Component', () => {
     expect(tourController.getCustomState()).toEqual(customState)
   })
 
+  it('should log to the console if the debug option is true', () => {
+    // given
+    jest.spyOn(console, 'log')
+    tourConfig.debug = true
+
+    // when
+    render(<TourProvider config={tourConfig}></TourProvider>)
+
+    // then
+    expect(console.log).toHaveBeenCalledWith({
+      'react-hook-tour': {
+        tourController: expect.any(Object),
+        state: expect.any(Object)
+      }
+    })
+  })
+
   it('should use the useStepChangeHook', () => {
     // when
     let tourController
