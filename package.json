@@ -1,6 +1,6 @@
 {
   "name": "react-hook-tour",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "description": "A product tour library using React Hooks",
   "main": "dist/index.js",
   "module": "lib/index.js",
