@@ -18,8 +18,13 @@ export default props => {
       case StepConfigType.INVALID: {
         throw new Error(`Step configuration at position ${i} is not valid.`)
       }
-      case StepConfigType.PREDEF: {
-        steps[stepConfig.name] = stepConfig
+      case StepConfigType.PREDEFINED:
+      case StepConfigType.ASYNC: {
+        // add the step to the tour even if it's async, just remove the fetch function
+        steps[stepConfig.name] = {
+          ...stepConfig
+        }
+        delete steps[stepConfig.name].fetch
         break
       }
     }
