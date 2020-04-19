@@ -115,16 +115,13 @@ export default props => {
 
 Configurable for `Tour` only
 
-All steps must be listed here. Each element in the array can either be a string representing the step name, a preconfigured step, or a step placeholder object.
+All steps must be listed here. Each element in the array can either be a string representing the step name, or a preconfigured step.
 
 If it's a string, the step must be registered by the time the _previous_ step is displayed.
 
-If it is an object, it can be a fully configured step and can contain any of the configuration options below, but it must not include a `fetch()` method.
+If it is an object, it can be a fully configured step and can contain any of the configuration options below. Optionally, it can contain a `fetch()` method that instructs the tour to assume that the step exists but has not yet loaded. Note that `fetch()` can only be used in `stepOrder`, not on a step configuration using `useStep()`.
 
-Or, it can take the following options as a placeholder that instructs the tour to assume that the step exists but has not yet loaded:
-
- - `name` - required, the name of the step
- - `fetch` - required, a function the returns a promise. Called when the step is to be displayed but is not yet registered. It can change the route, fetch data, or conduct any other action that enabled the step to load and register. When present, the tour will pause and will only resume once the step is registered. Life cycle events can be used to manage the UI when in the fetching state.
+`fetch() => Promise<void>` - Called when the step is to be displayed but is not yet registered. It can change the route, fetch data, or conduct any other action that enables the step to load and register. When present, the tour will pause and will only resume once the step is registered. Life cycle events can be used to manage the UI when in the fetching state.
 
 ### `name <string>` required
 
