@@ -109,7 +109,7 @@ describe('TourProvider Component', () => {
 
   it('should log to the console if the debug option is true', () => {
     // given
-    jest.spyOn(console, 'log')
+    jest.spyOn(console, 'log').mockImplementation(() => {})
     tourConfig.debug = true
 
     // when

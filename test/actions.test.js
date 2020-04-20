@@ -31,6 +31,10 @@ describe('Tour Actions', () => {
       getCurrentStep: () => currentStep,
       getConfig: jest.fn(() => {}),
       getStepPointer: jest.fn(() => 1),
+      hasNextStep: jest.fn(() => true),
+      hasPreviousStep: jest.fn(() => true),
+      getNextStepIndex: jest.fn(() => 2),
+      getPrevStepIndex: jest.fn(() => 0)
     }
 
     dispatch = jest.fn(() => 'called')

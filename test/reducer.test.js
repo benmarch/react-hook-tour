@@ -16,23 +16,30 @@ import {
 import reducer, { initialState, generateSelectors } from '../lib/reducer'
 
 describe('Tour Reducer', () => {
+  let state
+  let selectors
+  
+  beforeEach(() => {
+    state = {
+      ...initialState,
+      steps: {},
+      stepOrder: [],
+      customState: {}
+    }
+    selectors = {
+      ...generateSelectors(state).public,
+      ...generateSelectors(state).protected
+    }
+  })
+  
   describe('selectors', () => {
-    let selectors
-    
-    beforeEach(() => {
-      selectors = {
-        ...generateSelectors(initialState).public,
-        ...generateSelectors(initialState).protected
-      }
-    })
-
     describe('getSteps()', () => {      
       it('should return the expected value', () => {
         // when
         const result = selectors.getSteps()
 
         // then
-        expect(result).toBe(initialState.steps)
+        expect(result).toBe(state.steps)
       })
     })
 
@@ -42,7 +49,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getCurrentStep()
 
         // then
-        expect(result).toBe(initialState.currentStep)
+        expect(result).toBe(state.currentStep)
       })
     })
 
@@ -52,7 +59,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getPreviouslyShownStep()
 
         // then
-        expect(result).toBe(initialState.previouslyShownStep)
+        expect(result).toBe(state.previouslyShownStep)
       })
     })
 
@@ -62,7 +69,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getStepPointer()
 
         // then
-        expect(result).toBe(initialState.stepPointer)
+        expect(result).toBe(state.stepPointer)
       })
     })
 
@@ -72,7 +79,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getStepOrder()
 
         // then
-        expect(result).toBe(initialState.stepOrder)
+        expect(result).toBe(state.stepOrder)
       })
     })
 
@@ -82,7 +89,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getStatus()
 
         // then
-        expect(result).toBe(initialState.status)
+        expect(result).toBe(state.status)
       })
     })
 
@@ -92,7 +99,7 @@ describe('Tour Reducer', () => {
         const result = selectors.hasNextStep()
 
         // then
-        expect(result).toBe(initialState.hasNextStep)
+        expect(result).toBe(state.hasNextStep)
       })
     })
 
@@ -102,7 +109,135 @@ describe('Tour Reducer', () => {
         const result = selectors.hasPreviousStep()
 
         // then
-        expect(result).toBe(initialState.hasPrevStep)
+        expect(result).toBe(state.hasPrevStep)
+      })
+    })
+
+    describe('getNextStepIndex()', () => {
+      it('should determine that the next name step is valid', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.steps.second = {name: 'second'}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that the next async step is valid', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second', fetch: () => {}}, 'third']
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that a future name step is valid', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.steps.third = {name: 'third'}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(2)
+      })
+
+      it('should determine that a future async step is valid', () => {
+        // given
+        state.stepOrder = ['first', 'second', {name: 'third', fetch: () => {}}]
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(2)
+      })
+
+      it('should determine that there are no more valid steps', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(-1)
+      })
+    })
+
+    describe('getPrevStepIndex()', () => {
+      it('should determine that the previous name step is valid', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.steps.second = {name: 'second'}
+        state.stepPointer = 2
+
+        // when
+        const stepIndex = selectors.getPrevStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that the previous async step is valid', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second', fetch: () => {}}, 'third']
+        state.stepPointer = 2
+
+        // when
+        const stepIndex = selectors.getPrevStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that a past name step is valid', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.steps.first = {name: 'first'}
+        state.stepPointer = 2
+
+        // when
+        const stepIndex = selectors.getPrevStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(0)
+      })
+
+      it('should determine that a past async step is valid', () => {
+        // given
+        state.stepOrder = [{name: 'first', fetch: () => {}}, 'second', 'third']
+        state.stepPointer = 2
+
+        // when
+        const stepIndex = selectors.getPrevStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(0)
+      })
+
+      it('should determine that there are no more valid steps', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.stepPointer = 2
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(-1)
       })
     })
 
@@ -112,7 +247,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getNavigationAction()
 
         // then
-        expect(result).toBe(initialState.navAction)
+        expect(result).toBe(state.navAction)
       })
     })
 
@@ -122,7 +257,7 @@ describe('Tour Reducer', () => {
         const result = selectors.getCustomState()
 
         // then
-        expect(result).toBe(initialState.customState)
+        expect(result).toBe(state.customState)
       })
     })
 
@@ -132,36 +267,25 @@ describe('Tour Reducer', () => {
         const result = selectors.getPopoverRef()
 
         // then
-        expect(result).toBe(initialState.popoverRef)
+        expect(result).toBe(state.popoverRef)
       })
     })
 
     describe('getConfig()', () => {      
       it('should return the expected value', () => {
         // given
-        initialState.tourConfig.randomKey = 'random value'
+        state.tourConfig.randomKey = 'random value'
 
         // when
         const result = selectors.getConfig('randomKey')
 
         // then
-        expect(result).toBe(initialState.tourConfig.randomKey)
+        expect(result).toBe(state.tourConfig.randomKey)
       })
     })
   })
 
   describe('reducer', () => {
-    let state
-
-    beforeEach(() => {
-      state = {
-        ...initialState,
-        steps: {},
-        stepOrder: [],
-        customState: {}
-      }
-    })
-
     it('should return the previous state if the action type is not recognized', () => {
       // given
       const previousState = {

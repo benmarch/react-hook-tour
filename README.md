@@ -117,7 +117,7 @@ Configurable for `Tour` only
 
 All steps must be listed here. Each element in the array can either be a string representing the step name, or a preconfigured step.
 
-If it's a string, the step must be registered by the time the _previous_ step is displayed.
+If it's a string, the step must be registered by the time the _previous_ step is displayed, otherwise it will be skipped.
 
 If it is an object, it can be a fully configured step and can contain any of the configuration options below. Optionally, it can contain a `fetch()` method that instructs the tour to assume that the step exists but has not yet loaded. Note that `fetch()` can only be used in `stepOrder`, not on a step configuration using `useStep()`.
 
