@@ -364,6 +364,52 @@ describe('Tour Reducer', () => {
         expect(result).toBe(state.tourConfig.randomKey)
       })
     })
+
+    describe('getIndexOfStep()', () => {
+      it('should return the index of a name step', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second'}, {name: 'third', fetch: () => {}}]
+
+        // when
+        const stepIndex = selectors.getIndexOfStep('first')
+
+        // then
+        expect(stepIndex).toBe(0)
+      })
+
+      it('should return the index of a predefined step', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second'}, {name: 'third', fetch: () => {}}]
+
+        // when
+        const stepIndex = selectors.getIndexOfStep('second')
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should return the index of an async step', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second'}, {name: 'third', fetch: () => {}}]
+
+        // when
+        const stepIndex = selectors.getIndexOfStep('third')
+
+        // then
+        expect(stepIndex).toBe(2)
+      })
+
+      it('should return -1 if the step does not exist', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second'}, {name: 'third', fetch: () => {}}]
+
+        // when
+        const stepIndex = selectors.getIndexOfStep('fourth')
+
+        // then
+        expect(stepIndex).toBe(-1)
+      })
+    })
   })
 
   describe('reducer', () => {

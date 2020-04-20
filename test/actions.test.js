@@ -34,7 +34,8 @@ describe('Tour Actions', () => {
       hasNextStep: jest.fn(() => true),
       hasPreviousStep: jest.fn(() => true),
       getNextStepIndex: jest.fn(() => 2),
-      getPrevStepIndex: jest.fn(() => 0)
+      getPrevStepIndex: jest.fn(() => 0),
+      getIndexOfStep: jest.fn(() => 3)
     }
 
     dispatch = jest.fn(() => 'called')
@@ -100,6 +101,20 @@ describe('Tour Actions', () => {
       // then
       expect(dispatch).not.toHaveBeenCalledWith({
         type: START
+      })
+    })
+
+    it('should start at the proper step', async () => {
+      // when
+      await actions.start('fourth')
+
+      // then
+      expect(dispatch).toHaveBeenCalledWith({
+        type: SET_STEP_POINTER,
+        data: {
+          index: 3,
+          action: 'start'
+        }
       })
     })
   })
@@ -285,6 +300,48 @@ describe('Tour Actions', () => {
     it('should not do anything if the tour is OFF', async () => {
       // when
       await actions.prev()
+
+      // then
+      expect(dispatch).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('jumpTo()', () => {
+    it('should dispatch the SET_STEP_POINTER action with the correct index', async () => {
+      // given
+      selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
+
+      // when
+      await actions.jumpTo('blah')
+
+      // then
+      expect(dispatch).toHaveBeenCalledWith({
+        type: SET_STEP_POINTER,
+        data: {
+          index: 3,
+          action: 'jump'
+        },
+      })
+    })
+
+    it('should do nothing if the tour is OFF', async () => {
+      // given
+      selectors.getStatus.mockReturnValueOnce(TourStatus.OFF)
+
+      // when
+      await actions.jumpTo('blah')
+
+      // then
+      expect(dispatch).not.toHaveBeenCalled()
+    })
+
+    it('should do nothing if there is no step', async () => {
+      // given
+      selectors.getStatus.mockReturnValueOnce(TourStatus.ON)
+      selectors.getIndexOfStep.mockReturnValue(-1)
+
+      // when
+      await actions.jumpTo('blah')
 
       // then
       expect(dispatch).not.toHaveBeenCalled()

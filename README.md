@@ -252,12 +252,13 @@ Properties can be accessed using `step.getConfig(key)`.
 
 The following methods are available on the `tour` object for controlling the tour:
 
- - `start()` - starts the tour from the first step
+ - `start(startAtStepName?)` - starts the tour from the first step or at the step with the provided name
  - `end()` - ends the tour
  - `pause()` - turns the tour off but maintains state
  - `resume()` - starts a paused tour at the step left off when it was paused
  - `next()` - moves to the next step
  - `prev()` - moves to the previous step
+ - `jumpTo(stepName)` - moves to the step with the provided name
  - `setStepOrder()` - resets the step order. Running this when a tour is running will cause problems!
  - `setCustomState(state)` - allows for arbitrary state to be stored on the tour. Useful for testing or saving values for displaying in the popover.
 
