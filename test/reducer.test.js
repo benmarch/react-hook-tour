@@ -175,6 +175,87 @@ describe('Tour Reducer', () => {
         // then
         expect(stepIndex).toBe(-1)
       })
+
+      it('should determine that a name step should not be skipped', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.steps.second = {name: 'second', shouldSkip: () => false}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that a predefined step should not be skipped', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second'}, 'third']
+        state.steps.second = {name: 'second', shouldSkip: () => false}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that an async step should not be skipped', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second', fetch: () => {}}, 'third']
+        state.steps.second = {name: 'second', shouldSkip: () => false}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(1)
+      })
+
+      it('should determine that a name step should be skipped', () => {
+        // given
+        state.stepOrder = ['first', 'second', 'third']
+        state.steps.second = {name: 'second', shouldSkip: () => true}
+        state.steps.third = {name: 'third'}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(2)
+      })
+
+      it('should determine that a predefined step should be skipped', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second'}, 'third']
+        state.steps.second = {name: 'second', shouldSkip: () => true}
+        state.steps.third = {name: 'third'}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(2)
+      })
+
+      it('should determine that an async step should not be skipped', () => {
+        // given
+        state.stepOrder = ['first', {name: 'second', fetch: () => {}}, 'third']
+        state.steps.second = {name: 'second', shouldSkip: () => true}
+        state.steps.third = {name: 'third'}
+        state.stepPointer = 0
+
+        // when
+        const stepIndex = selectors.getNextStepIndex(state)
+
+        // then
+        expect(stepIndex).toBe(2)
+      })
     })
 
     describe('getPrevStepIndex()', () => {

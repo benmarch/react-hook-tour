@@ -217,6 +217,12 @@ This object is passed directly to [Hone](https://github.com/benmarch/hone) to co
 
 The most relevant option is `classPrefix` which can only be set on the `Tour` (for now, for performance reasons). To properly style the backdrop, the full className would be `<classPrefix>-component`. See benmarch/hone and the example app for usage.
 
+### `shouldSkip <Function => boolean>`
+
+Configurable for `Step` only.
+
+A synchronous function that returns whether a step should be skipped. It will be evaluated twice: first to determine whether it can be navigated to next or previously, and again when a next or previous action is triggered. If the state change between those events, it might result in unexpected behavior. 
+
 ### Life cycle events
 
 Configurable for `Tour` and `Step`
