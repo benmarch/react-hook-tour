@@ -128,9 +128,7 @@ export default props => {
 
       {tour.getCustomState().showLazy && <LazyStep />}
 
-      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-      <div className="way-down-the-page" ref={scrollStep}>Hi guys!</div>
+      <div className="way-down-the-page" ref={scrollStep} style={{marginTop: '110vh'}}>Hi guys!</div>
     </div>
   )
 }
